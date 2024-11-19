@@ -30,14 +30,14 @@
         $(document).ready(function () {
 
             $("button").on("animationend", resetAnimation);
-            createRandomArray(16, 16);
-            setButtons(iR, iC);
+            initializeMatrix();
         });
 
-        function createRandomArray(length, max) {
+        function initializeMatrix() {
             nums = [];
-            while (nums.length < length) {
-                const randomNum = Math.floor(Math.random() * max);
+            $("#matrix").empty();
+            while (nums.length < 16) {
+                const randomNum = Math.floor(Math.random() * 16);
                 if (!nums.includes(randomNum)) {
                     nums.push(randomNum);
 
@@ -70,7 +70,10 @@
 
                 }
             }
-            return nums;
+            $("#matrix").append('<div class="row" id="rowReset"><p>&nbsp</p><button type="button" id="btnReset" class="btnR" onclick="initializeMatrix()">Reset</button></div>');
+            setButtons(iR, iC);
+            $("#sClick").text(0);
+
         }
 
 
@@ -206,6 +209,13 @@
         .btnM {
             font-size: medium;
             font-weight: bold;
+
+        }
+
+        .btnR {
+            font-size: medium;
+            font-weight: bold;
+            width: 100%;
         }
     </style>
 
