@@ -96,12 +96,18 @@
                     <div class="modal-body">
                         <div id="enD">
                             <p>
-                                Letters of the 4  Hindi words given in this puzzle are shuffled at the start. Click any of the letter to swap it with another letter by clicking the second box. When the letters are in right order for any of the words then they will turn green and get locked. 
+                                Letters of the 4 Hindi words given in this puzzle are shuffled at the start. Click any
+                                of the letter to swap it with another letter by clicking the second box. When the
+                                letters are in right order for any of the words then they will turn green and get
+                                locked.
                             </p>
                         </div>
                         <div id="enH">
                             <p>
-                                यहाँ चार अक्षर के चार शब्द दिये गए हैं लेकिन अक्षरों के क्रम बदल दिये गए हैं जिन्हें आपको फिर से सही क्रम में जमाना है। आप किसी भी अक्षर को किसी दूसरे अक्षर के साथ बदलने के लिए पहले अक्षर के डब्बे को क्लिक/टच करें फिर दूसरे अक्षर के डब्बे को क्लिक/टच करें। जब कोई शब्द पूरा हो जाएगा तो उसका रंग हरा हो जाएगा और फिर उसके अक्षर स्थिर हो जाएंगे।                                 
+                                यहाँ चार अक्षर के चार शब्द दिये गए हैं लेकिन अक्षरों के क्रम बदल दिये गए हैं जिन्हें
+                                आपको फिर से सही क्रम में जमाना है। आप किसी भी अक्षर को किसी दूसरे अक्षर के साथ बदलने के
+                                लिए पहले अक्षर के डब्बे को क्लिक/टच करें फिर दूसरे अक्षर के डब्बे को क्लिक/टच करें। जब
+                                कोई शब्द पूरा हो जाएगा तो उसका रंग हरा हो जाएगा और फिर उसके अक्षर स्थिर हो जाएंगे।
                             </p>
                         </div>
                     </div>
@@ -123,7 +129,7 @@
             $(document).ready(function () {
                 let alphabet = [];
                 let selectedItem = null;
-                let originalSequence = [] 
+                let originalSequence = []
 
                 function createGrid() {
                     alphabet = getRandomWords().join('').split('');
@@ -209,8 +215,20 @@
                 }
 
                 $('#resetBtn').click(function () {
-                    shuffleGrid();
+                    //alphabet = getRandomWords().join('').split('');
+                    //shuffleGrid();
+
+                    const oldGrid = document.getElementById('grid');
+                    const newGrid = document.createElement('div');
+                    newGrid.id = 'grid';
+                    newGrid.classList.add('grid-container');
+                    oldGrid.parentNode.replaceChild(newGrid, oldGrid);
+                    grid = newGrid;
+
+
                     selectedItem = null;
+                    createGrid();
+                    shuffleGrid();
                 });
 
                 // Initialize the grid
