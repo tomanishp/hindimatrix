@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4x4 Hindi Words</title>
+    <title>4x4 Alphabet Grid</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .grid-container {
             width: 100%;
             max-width: 600px;
             margin: 20px auto;
+            touch-action: none;
+            /* Prevents default touch behaviors */
         }
 
         .grid-row {
@@ -30,6 +32,12 @@
             margin: 1%;
             cursor: move;
             user-select: none;
+            -webkit-user-select: none;
+            /* Safari */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+            /* IE10+/Edge */
             height: 80px;
             display: flex;
             align-items: center;
@@ -38,7 +46,8 @@
             font-size: 24px;
             font-weight: bold;
             transition: background-color 0.3s ease-in-out;
-            flex: 0 0 24%;
+            flex: 0 0 23%;
+            touch-action: none;
         }
 
         .grid-item.correct {
@@ -47,6 +56,7 @@
 
         .grid-item.dragging {
             opacity: 0.5;
+            z-index: 1000;
         }
 
         .controls {
@@ -56,7 +66,6 @@
 
         .controls .btn {
             margin: 0 5px;
-            /* Add spacing between buttons */
         }
     </style>
 </head>
@@ -72,7 +81,7 @@
         </div>
         <div class="controls">
             <button class="btn btn-primary" style="display: none;" id="shuffleBtn">Shuffle</button>
-            <button class="btn btn-secondary" id="resetBtn">Reset/ नया क्रम</button>
+            <button class="btn btn-primary" id="resetBtn">Reset/ नया क्रम</button>
         </div>
         <hr size="1" />
         <div id="enD">
@@ -90,27 +99,30 @@
             </p>
         </div>
         <hr size="1" />
-        <div style="text-align: center;">(c) Manish Pandey 2024 <a href="mailto:tomanishp@gmail.com">Send feedback/ सुझाव भेजें</a></div>
+        <div style="text-align: center;">(c) Manish Pandey 2024 <a href="mailto:tomanishp@gmail.com">Send feedback/
+                सुझाव भेजें</a></div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             let iClicks = 0;
             let grid = document.getElementById('grid');
-            // Store the original sequence of alphabets (A-I)
-            let originalSequence = getRandomWords().join('').split('');
+            let originalSequence = [];
             let items = [];
+            let draggedItem = null;
+            let touchStartX = 0;
+            let touchStartY = 0;
 
             function createGrid() {
+                iClicks = 0;
                 grid.innerHTML = '';
-                items = [...originalSequence]; // Create a copy of original sequence
+                originalSequence = getRandomWords().join('').split('');
+                items = [...originalSequence];
 
-                // Create 4 rows
                 for (let i = 0; i < 4; i++) {
                     const row = document.createElement('div');
                     row.className = 'grid-row';
 
-                    // Add 4 items to each row
                     for (let j = 0; j < 4; j++) {
                         const item = document.createElement('div');
                         item.className = 'grid-item';
@@ -125,72 +137,117 @@
                 checkOrder();
             }
 
-            function resetGrid() {
-                // Remove all event listeners by removing and recreating the grid element
-                const oldGrid = document.getElementById('grid');
-                const newGrid = document.createElement('div');
-                newGrid.id = 'grid';
-                oldGrid.parentNode.replaceChild(newGrid, oldGrid);
+            function initializeEventListeners() {
+                // Mouse events
+                grid.addEventListener('dragstart', handleDragStart);
+                grid.addEventListener('dragend', handleDragEnd);
+                grid.addEventListener('dragover', handleDragOver);
+                grid.addEventListener('drop', handleDrop);
 
-                // Reinitialize the grid
-                grid = newGrid;
-                originalSequence = getRandomWords().join('').split('');
-                initializeEventListeners();
-                createGrid();
+                // Touch events
+                grid.addEventListener('touchstart', handleTouchStart, { passive: false });
+                grid.addEventListener('touchmove', handleTouchMove, { passive: false });
+                grid.addEventListener('touchend', handleTouchEnd);
             }
 
-            function initializeEventListeners() {
-                // Initialize drag and drop
-                grid.addEventListener('dragstart', e => {
-                    if (e.target.classList.contains('grid-item')) {
-                        e.target.classList.add('dragging');
-                    }
-                });
+            function handleDragStart(e) {
+                if (e.target.classList.contains('grid-item')) {
+                    draggedItem = e.target;
+                    e.target.classList.add('dragging');
+                }
+            }
 
-                grid.addEventListener('dragend', e => {
-                    if (e.target.classList.contains('grid-item')) {
-                        e.target.classList.remove('dragging');
-                        iClicks++;
-                    }
-                    checkOrder();
-                });
+            function handleDragEnd(e) {
+                if (e.target.classList.contains('grid-item')) {
+                    e.target.classList.remove('dragging');
+                    iClicks++;
+                }
+                checkOrder();
+            }
 
-                grid.addEventListener('dragover', e => {
+            function handleDragOver(e) {
+                e.preventDefault();
+                handleItemMovement(e.target.closest('.grid-item'));
+            }
+
+            function handleDrop(e) {
+                e.preventDefault();
+                handleItemMovement(e.target.closest('.grid-item'));
+                draggedItem = null;
+            }
+
+            function handleTouchStart(e) {
+                if (e.target.classList.contains('grid-item')) {
                     e.preventDefault();
-                    const targetItem = e.target.closest('.grid-item');
-                    if (targetItem) {
-                        const draggingItem = document.querySelector('.dragging');
-                        if (draggingItem !== targetItem) {
-                            const items = [...document.querySelectorAll('.grid-item')];
-                            const draggingIndex = items.indexOf(draggingItem);
-                            const targetIndex = items.indexOf(targetItem);
+                    draggedItem = e.target;
+                    draggedItem.classList.add('dragging');
 
-                            if (targetIndex > draggingIndex) {
-                                targetItem.parentElement.insertBefore(draggingItem, targetItem.nextSibling);
-                            } else {
-                                targetItem.parentElement.insertBefore(draggingItem, targetItem);
-                            }
+                    const touch = e.touches[0];
+                    touchStartX = touch.clientX - draggedItem.offsetLeft;
+                    touchStartY = touch.clientY - draggedItem.offsetTop;
 
-                            // Rebalance rows if needed
-                            const rows = document.querySelectorAll('.grid-row');
-                            rows.forEach(row => {
-                                if (row.children.length > 4) {
-                                    const lastItem = row.lastElementChild;
-                                    const targetRow = Array.from(rows).find(r => r.children.length < 4);
-                                    if (targetRow) {
-                                        targetRow.appendChild(lastItem);
-                                    }
-                                }
-                            });
+                    // Store original position
+                    draggedItem.style.position = 'absolute';
+                    draggedItem.style.zIndex = '1000';
+                }
+            }
 
-                            //Update step count
-                        }
+            function handleTouchMove(e) {
+                if (draggedItem) {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+
+                    draggedItem.style.left = `${touch.clientX - touchStartX}px`;
+                    draggedItem.style.top = `${touch.clientY - touchStartY}px`;
+
+                    // Find the element under the touch point
+                    const touchElement = document.elementFromPoint(touch.clientX, touch.clientY);
+                    const targetItem = touchElement?.closest('.grid-item');
+                    if (targetItem && targetItem !== draggedItem) {
+                        handleItemMovement(targetItem);
                     }
-                });
+                }
+            }
+
+            function handleTouchEnd(e) {
+                if (draggedItem) {
+                    draggedItem.classList.remove('dragging');
+                    draggedItem.style.position = '';
+                    draggedItem.style.left = '';
+                    draggedItem.style.top = '';
+                    draggedItem.style.zIndex = '';
+                    draggedItem = null;
+                    checkOrder();
+                }
+            }
+
+            function handleItemMovement(targetItem) {
+                if (targetItem && draggedItem && targetItem !== draggedItem) {
+                    const items = [...document.querySelectorAll('.grid-item')];
+                    const draggingIndex = items.indexOf(draggedItem);
+                    const targetIndex = items.indexOf(targetItem);
+
+                    if (targetIndex > draggingIndex) {
+                        targetItem.parentElement.insertBefore(draggedItem, targetItem.nextSibling);
+                    } else {
+                        targetItem.parentElement.insertBefore(draggedItem, targetItem);
+                    }
+
+                    // Rebalance rows
+                    const rows = document.querySelectorAll('.grid-row');
+                    rows.forEach(row => {
+                        if (row.children.length > 4) {
+                            const lastItem = row.lastElementChild;
+                            const targetRow = Array.from(rows).find(r => r.children.length < 4);
+                            if (targetRow) {
+                                targetRow.appendChild(lastItem);
+                            }
+                        }
+                    });
+                }
             }
 
             function shuffleGrid() {
-                // Remove 'correct' class from all items
                 document.querySelectorAll('.grid-item').forEach(item => {
                     item.classList.remove('correct');
                 });
@@ -211,21 +268,16 @@
                 const items = document.querySelectorAll('.grid-item');
                 const values = Array.from(items).map(item => item.textContent);
 
-                // Reset all items to white background
                 items.forEach(item => item.classList.remove('correct'));
 
-                // Check for each set of 4 sequential alphabets using originalSequence
                 for (let i = 0; i < originalSequence.length; i += 4) {
                     const sequenceSet = originalSequence.slice(i, i + 4);
 
-                    // Find consecutive sequences in the grid
                     for (let j = 0; j <= 12; j++) {
                         const currentSet = values.slice(j, j + 4);
 
-                        // Check if current set matches the sequence
                         if (currentSet.length === 4 &&
                             currentSet.every((val, index) => val === sequenceSet[index])) {
-                            // Mark these items as correct
                             for (let k = 0; k < 4; k++) {
                                 items[j + k].classList.add('correct');
                             }
@@ -235,14 +287,22 @@
 
                 // Update steps
                 document.getElementById("sClick").innerText = 'Steps: ' + iClicks;
-
             }
 
-
+            function resetGrid() {
+                const oldGrid = document.getElementById('grid');
+                const newGrid = document.createElement('div');
+                newGrid.id = 'grid';
+                oldGrid.parentNode.replaceChild(newGrid, oldGrid);
+                grid = newGrid;
+                initializeEventListeners();
+                createGrid();
+            }
 
             // Initialize grid and add button handlers
             initializeEventListeners();
             createGrid();
+
             document.getElementById('shuffleBtn').addEventListener('click', shuffleGrid);
             document.getElementById('resetBtn').addEventListener('click', resetGrid);
         });
