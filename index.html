@@ -250,9 +250,9 @@
                     // Rebalance rows
                     const rows = document.querySelectorAll('.grid-row');
                     rows.forEach(row => {
-                        if (row.children.length > 3) {
+                        if (row.children.length > 4) {
                             const lastItem = row.lastElementChild;
-                            const targetRow = Array.from(rows).find(r => r.children.length < 3);
+                            const targetRow = Array.from(rows).find(r => r.children.length < 4);
                             if (targetRow) {
                                 targetRow.appendChild(lastItem);
                             }
@@ -272,8 +272,8 @@
 
                 document.querySelectorAll('.grid-row').forEach((row, rowIndex) => {
                     row.innerHTML = '';
-                    for (let i = 0; i < 3; i++) {
-                        row.appendChild(shuffledItems[rowIndex * 3 + i]);
+                    for (let i = 0; i < 4; i++) {
+                        row.appendChild(shuffledItems[rowIndex * 4 + i]);
                     }
                 });
                 checkOrder();
