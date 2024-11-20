@@ -104,11 +104,11 @@
     </div>
 
     <script>
+        let iClicks = 0;
+        let originalSequence = [];
+        let items = [];
         document.addEventListener('DOMContentLoaded', function () {
-            let iClicks = 0;
             let grid = document.getElementById('grid');
-            let originalSequence = [];
-            let items = [];
             let draggedItem = null;
             let touchStartX = 0;
             let touchStartY = 0;
@@ -134,7 +134,7 @@
                     grid.appendChild(row);
                 }
                 shuffleGrid();
-                checkOrder();
+                //checkOrder();
             }
 
             function initializeEventListeners() {
@@ -150,10 +150,24 @@
                 grid.addEventListener('touchend', handleTouchEnd);
             }
 
+            function disableBox(item) {
+                item.classList.add('disabled');
+                item.setAttribute('draggable', 'false');
+                item.setAttribute('data-disabled', 'true');
+            }
+
+            function enableBox(item) {
+                item.classList.remove('disabled');
+                item.setAttribute('draggable', 'true');
+                item.removeAttribute('data-disabled');
+            }
+
             function handleDragStart(e) {
-                if (e.target.classList.contains('grid-item')) {
+                if (e.target.classList.contains('grid-item') && !e.target.classList.contains('disabled')) {
                     draggedItem = e.target;
                     e.target.classList.add('dragging');
+                } else {
+                    e.preventDefault();
                 }
             }
 
@@ -177,7 +191,7 @@
             }
 
             function handleTouchStart(e) {
-                if (e.target.classList.contains('grid-item')) {
+                if (e.target.classList.contains('grid-item') && !e.target.classList.contains('disabled')) {
                     e.preventDefault();
                     draggedItem = e.target;
                     draggedItem.classList.add('dragging');
@@ -186,7 +200,6 @@
                     touchStartX = touch.clientX - draggedItem.offsetLeft;
                     touchStartY = touch.clientY - draggedItem.offsetTop;
 
-                    // Store original position
                     draggedItem.style.position = 'absolute';
                     draggedItem.style.zIndex = '1000';
                 }
@@ -222,7 +235,8 @@
             }
 
             function handleItemMovement(targetItem) {
-                if (targetItem && draggedItem && targetItem !== draggedItem) {
+                if (targetItem && draggedItem && targetItem !== draggedItem &&
+                    !targetItem.classList.contains('disabled') && !draggedItem.classList.contains('disabled')) {
                     const items = [...document.querySelectorAll('.grid-item')];
                     const draggingIndex = items.indexOf(draggedItem);
                     const targetIndex = items.indexOf(targetItem);
@@ -236,9 +250,9 @@
                     // Rebalance rows
                     const rows = document.querySelectorAll('.grid-row');
                     rows.forEach(row => {
-                        if (row.children.length > 4) {
+                        if (row.children.length > 3) {
                             const lastItem = row.lastElementChild;
-                            const targetRow = Array.from(rows).find(r => r.children.length < 4);
+                            const targetRow = Array.from(rows).find(r => r.children.length < 3);
                             if (targetRow) {
                                 targetRow.appendChild(lastItem);
                             }
@@ -250,6 +264,7 @@
             function shuffleGrid() {
                 document.querySelectorAll('.grid-item').forEach(item => {
                     item.classList.remove('correct');
+                    enableBox(item); // Re-enable all boxes when shuffling
                 });
 
                 const allItems = [...document.querySelectorAll('.grid-item')];
@@ -257,8 +272,8 @@
 
                 document.querySelectorAll('.grid-row').forEach((row, rowIndex) => {
                     row.innerHTML = '';
-                    for (let i = 0; i < 4; i++) {
-                        row.appendChild(shuffledItems[rowIndex * 4 + i]);
+                    for (let i = 0; i < 3; i++) {
+                        row.appendChild(shuffledItems[rowIndex * 3 + i]);
                     }
                 });
                 checkOrder();
