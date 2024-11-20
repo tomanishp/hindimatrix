@@ -12,7 +12,6 @@
             max-width: 600px;
             margin: 20px auto;
             touch-action: none;
-            /* Prevents default touch behaviors */
         }
 
         .grid-row {
@@ -21,7 +20,7 @@
             padding: 2px;
             background-color: #f8f9fa;
             min-height: 100px;
-            transition: background-color 0.3s ease-in-out;
+            transition: background-color 0.3s;
             position: relative;
             display: flex;
         }
@@ -33,11 +32,6 @@
             cursor: move;
             user-select: none;
             -webkit-user-select: none;
-            /* Safari */
-            -moz-user-select: none;
-            /* Firefox */
-            -ms-user-select: none;
-            /* IE10+/Edge */
             height: 80px;
             display: flex;
             align-items: center;
@@ -45,7 +39,7 @@
             background-color: white;
             font-size: 24px;
             font-weight: bold;
-            transition: background-color 0.3s ease-in-out;
+            transition: background-color 0.3s;
             flex: 0 0 23%;
             touch-action: none;
         }
@@ -54,276 +48,176 @@
             background-color: #98FB98;
         }
 
-        .grid-item.dragging {
-            opacity: 0.5;
-            z-index: 1000;
+        .grid-item.selected {
+            background-color: #e0e0e0;
         }
 
-        .controls {
-            text-align: center;
-            margin: 20px 0;
+        .grid-item.disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
         }
 
-        .controls .btn {
-            margin: 0 5px;
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .custom-button {
+            width: 40%;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h2 class="text-primary text-center">4x4 Hindi Words</h2>
-        <hr size="1" />
-        <p><strong><span id="sClick">Steps: 0</span></strong></p>
-        <hr size="1" />
-        <div class="grid-container">
-            <div id="grid"></div>
+        <h2 class="text-center mt-4">4x4 Hindi Words Grid</h2>
+        <div class="grid-container" id="grid"></div>
+        <div class="text-center mt-3 button-container">
+            <button class="btn btn-primary custom-button" id="resetBtn">Reset/ नए शब्द</button>
+            <button class="btn btn-info custom-button" data-toggle="modal" data-target="#howToPlayModal">
+                How to Play/ कैसे खेलें
+            </button>
         </div>
-        <div class="controls">
-            <button class="btn btn-primary" style="display: none;" id="shuffleBtn">Shuffle</button>
-            <button class="btn btn-primary" id="resetBtn">Reset/ नया क्रम</button>
+
+        <!-- Add Modal -->
+        <div class="modal fade" id="howToPlayModal" tabindex="-1" role="dialog" aria-labelledby="howToPlayModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="howToPlayModalLabel">How to Play</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="enD">
+                            <p>
+                                Letters of the 4  Hindi words given in this puzzle are shuffled at the start. Click any of the letter to swap it with another letter by clicking the second box. When the letters are in right order for any of the words then they will turn green and get locked. 
+                            </p>
+                        </div>
+                        <div id="enH">
+                            <p>
+                                यहाँ चार अक्षर के चार शब्द दिये गए हैं लेकिन अक्षरों के क्रम बदल दिये गए हैं जिन्हें आपको फिर से सही क्रम में जमाना है। आप किसी भी अक्षर को किसी दूसरे अक्षर के साथ बदलने के लिए पहले अक्षर के डब्बे को क्लिक/टच करें फिर दूसरे अक्षर के डब्बे को क्लिक/टच करें। जब कोई शब्द पूरा हो जाएगा तो उसका रंग हरा हो जाएगा और फिर उसके अक्षर स्थिर हो जाएंगे।                                 
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <hr size="1" />
-        <div id="enD">
-            <p>
-                <strong>How to play:&nbsp;</strong>You have to guess 4 hindi wrods correctly. Drag and drop box to
-                arrange them in right order. Words can be in any row but then have to be correct word. If same letter is
-                in multiple words, try swapping the letter if they are not accepted.
-            </p>
-        </div>
-        <div id="enH">
-            <p>
-                <strong>कैसे खेलें:&nbsp;</strong>यह चार अक्षर के चार शब्द दिये गए हैं। आप किसी भी डब्बे को उठाकर उसकी
-                जगह बदल सकते हैं। यदि एक ही अक्षर दो या अधिक बार है तो संभव है आपको अलग अक्षरों को लगाना पड़े क्योंकि एक
-                अक्षर एक ही शब्द से जुड़ा है।
-            </p>
-        </div>
-        <hr size="1" />
-        <div style="text-align: center;">(c) Manish Pandey 2024 <a href="mailto:tomanishp@gmail.com">Send feedback/
-                सुझाव भेजें</a></div>
-    </div>
 
-    <script>
-        let iClicks = 0;
-        let originalSequence = [];
-        let items = [];
-        document.addEventListener('DOMContentLoaded', function () {
-            let grid = document.getElementById('grid');
-            let draggedItem = null;
-            let touchStartX = 0;
-            let touchStartY = 0;
+        <!-- Add Bootstrap JavaScript and jQuery dependencies first -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="wordbank.js"></script>
+        <!-- Then add your game script -->
+        <script>
+            // Wait for jQuery to be loaded
+            $(document).ready(function () {
+                let alphabet = [];
+                let selectedItem = null;
+                let originalSequence = [] 
 
-            function createGrid() {
-                iClicks = 0;
-                grid.innerHTML = '';
-                originalSequence = getRandomWords().join('').split('');
-                items = [...originalSequence];
+                function createGrid() {
+                    alphabet = getRandomWords().join('').split('');
+                    originalSequence = [...alphabet];
+                    const grid = document.getElementById('grid');
+                    grid.innerHTML = '';
 
-                for (let i = 0; i < 4; i++) {
-                    const row = document.createElement('div');
-                    row.className = 'grid-row';
+                    for (let i = 0; i < 4; i++) {
+                        const row = document.createElement('div');
+                        row.className = 'grid-row';
 
-                    for (let j = 0; j < 4; j++) {
-                        const item = document.createElement('div');
-                        item.className = 'grid-item';
-                        item.setAttribute('draggable', 'true');
-                        item.textContent = items[i * 4 + j];
-                        row.appendChild(item);
-                    }
-
-                    grid.appendChild(row);
-                }
-                shuffleGrid();
-                //checkOrder();
-            }
-
-            function initializeEventListeners() {
-                // Mouse events
-                grid.addEventListener('dragstart', handleDragStart);
-                grid.addEventListener('dragend', handleDragEnd);
-                grid.addEventListener('dragover', handleDragOver);
-                grid.addEventListener('drop', handleDrop);
-
-                // Touch events
-                grid.addEventListener('touchstart', handleTouchStart, { passive: false });
-                grid.addEventListener('touchmove', handleTouchMove, { passive: false });
-                grid.addEventListener('touchend', handleTouchEnd);
-            }
-
-            function disableBox(item) {
-                item.classList.add('disabled');
-                item.setAttribute('draggable', 'false');
-                item.setAttribute('data-disabled', 'true');
-            }
-
-            function enableBox(item) {
-                item.classList.remove('disabled');
-                item.setAttribute('draggable', 'true');
-                item.removeAttribute('data-disabled');
-            }
-
-            function handleDragStart(e) {
-                if (e.target.classList.contains('grid-item') && !e.target.classList.contains('disabled')) {
-                    draggedItem = e.target;
-                    e.target.classList.add('dragging');
-                } else {
-                    e.preventDefault();
-                }
-            }
-
-            function handleDragEnd(e) {
-                if (e.target.classList.contains('grid-item')) {
-                    e.target.classList.remove('dragging');
-                    iClicks++;
-                }
-                checkOrder();
-            }
-
-            function handleDragOver(e) {
-                e.preventDefault();
-                handleItemMovement(e.target.closest('.grid-item'));
-            }
-
-            function handleDrop(e) {
-                e.preventDefault();
-                handleItemMovement(e.target.closest('.grid-item'));
-                draggedItem = null;
-            }
-
-            function handleTouchStart(e) {
-                if (e.target.classList.contains('grid-item') && !e.target.classList.contains('disabled')) {
-                    e.preventDefault();
-                    draggedItem = e.target;
-                    draggedItem.classList.add('dragging');
-
-                    const touch = e.touches[0];
-                    touchStartX = touch.clientX - draggedItem.offsetLeft;
-                    touchStartY = touch.clientY - draggedItem.offsetTop;
-
-                    draggedItem.style.position = 'absolute';
-                    draggedItem.style.zIndex = '1000';
-                }
-            }
-
-            function handleTouchMove(e) {
-                if (draggedItem) {
-                    e.preventDefault();
-                    const touch = e.touches[0];
-
-                    draggedItem.style.left = `${touch.clientX - touchStartX}px`;
-                    draggedItem.style.top = `${touch.clientY - touchStartY}px`;
-
-                    // Find the element under the touch point
-                    const touchElement = document.elementFromPoint(touch.clientX, touch.clientY);
-                    const targetItem = touchElement?.closest('.grid-item');
-                    if (targetItem && targetItem !== draggedItem) {
-                        handleItemMovement(targetItem);
+                        for (let j = 0; j < 4; j++) {
+                            const item = document.createElement('div');
+                            item.className = 'grid-item';
+                            item.textContent = alphabet[i * 4 + j];
+                            item.addEventListener('click', handleItemClick);
+                            item.addEventListener('touchstart', handleTouchStart, { passive: false });
+                            row.appendChild(item);
+                        }
+                        grid.appendChild(row);
                     }
                 }
-            }
 
-            function handleTouchEnd(e) {
-                if (draggedItem) {
-                    draggedItem.classList.remove('dragging');
-                    draggedItem.style.position = '';
-                    draggedItem.style.left = '';
-                    draggedItem.style.top = '';
-                    draggedItem.style.zIndex = '';
-                    draggedItem = null;
-                    checkOrder();
+                function shuffleArray(array) {
+                    for (let i = array.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]];
+                    }
                 }
-            }
 
-            function handleItemMovement(targetItem) {
-                if (targetItem && draggedItem && targetItem !== draggedItem &&
-                    !targetItem.classList.contains('disabled') && !draggedItem.classList.contains('disabled')) {
-                    const items = [...document.querySelectorAll('.grid-item')];
-                    const draggingIndex = items.indexOf(draggedItem);
-                    const targetIndex = items.indexOf(targetItem);
+                function shuffleGrid() {
+                    const items = Array.from(document.getElementsByClassName('grid-item'));
+                    const values = items.map(item => item.textContent);
+                    shuffleArray(values);
+                    items.forEach((item, index) => {
+                        item.textContent = values[index];
+                        item.classList.remove('correct', 'disabled');
+                    });
+                }
 
-                    if (targetIndex > draggingIndex) {
-                        targetItem.parentElement.insertBefore(draggedItem, targetItem.nextSibling);
+                function handleItemClick(e) {
+                    if (e.target.classList.contains('disabled')) return;
+
+                    if (!selectedItem) {
+                        selectedItem = e.target;
+                        selectedItem.classList.add('selected');
                     } else {
-                        targetItem.parentElement.insertBefore(draggedItem, targetItem);
+                        swapItems(selectedItem, e.target);
+                        selectedItem.classList.remove('selected');
+                        selectedItem = null;
+                        checkRows();
                     }
+                }
 
-                    // Rebalance rows
-                    const rows = document.querySelectorAll('.grid-row');
-                    rows.forEach(row => {
-                        if (row.children.length > 4) {
-                            const lastItem = row.lastElementChild;
-                            const targetRow = Array.from(rows).find(r => r.children.length < 4);
-                            if (targetRow) {
-                                targetRow.appendChild(lastItem);
+                function handleTouchStart(e) {
+                    e.preventDefault();
+                    handleItemClick(e);
+                }
+
+                function swapItems(item1, item2) {
+                    const temp = item1.textContent;
+                    item1.textContent = item2.textContent;
+                    item2.textContent = temp;
+                }
+
+                function checkRows() {
+                    const rows = document.getElementsByClassName('grid-row');
+
+                    Array.from(rows).forEach(row => {
+                        const items = Array.from(row.getElementsByClassName('grid-item'));
+                        const values = items.map(item => item.textContent);
+
+                        for (let i = 0; i <= 12; i += 4) {
+                            const sequence = originalSequence.slice(i, i + 4).join('');
+                            if (values.join('') === sequence) {
+                                items.forEach(item => {
+                                    item.classList.add('correct', 'disabled');
+                                });
+                                break;
                             }
                         }
                     });
                 }
-            }
 
-            function shuffleGrid() {
-                document.querySelectorAll('.grid-item').forEach(item => {
-                    item.classList.remove('correct');
-                    enableBox(item); // Re-enable all boxes when shuffling
+                $('#resetBtn').click(function () {
+                    shuffleGrid();
+                    selectedItem = null;
                 });
 
-                const allItems = [...document.querySelectorAll('.grid-item')];
-                const shuffledItems = allItems.sort(() => Math.random() - 0.5);
-
-                document.querySelectorAll('.grid-row').forEach((row, rowIndex) => {
-                    row.innerHTML = '';
-                    for (let i = 0; i < 4; i++) {
-                        row.appendChild(shuffledItems[rowIndex * 4 + i]);
-                    }
-                });
-                checkOrder();
-            }
-
-            function checkOrder() {
-                const items = document.querySelectorAll('.grid-item');
-                const values = Array.from(items).map(item => item.textContent);
-
-                items.forEach(item => item.classList.remove('correct'));
-
-                for (let i = 0; i < originalSequence.length; i += 4) {
-                    const sequenceSet = originalSequence.slice(i, i + 4);
-
-                    for (let j = 0; j <= 12; j++) {
-                        const currentSet = values.slice(j, j + 4);
-
-                        if (currentSet.length === 4 &&
-                            currentSet.every((val, index) => val === sequenceSet[index])) {
-                            for (let k = 0; k < 4; k++) {
-                                items[j + k].classList.add('correct');
-                                items[j + k].setAttribute('draggable', 'false');
-                            }
-                        }
-                    }
-                }
-
-                // Update steps
-                document.getElementById("sClick").innerText = 'Steps: ' + iClicks;
-            }
-
-            function resetGrid() {
-                const oldGrid = document.getElementById('grid');
-                const newGrid = document.createElement('div');
-                newGrid.id = 'grid';
-                oldGrid.parentNode.replaceChild(newGrid, oldGrid);
-                grid = newGrid;
-                initializeEventListeners();
+                // Initialize the grid
                 createGrid();
-            }
-
-            // Initialize grid and add button handlers
-            initializeEventListeners();
-            createGrid();
-
-            document.getElementById('shuffleBtn').addEventListener('click', shuffleGrid);
-            document.getElementById('resetBtn').addEventListener('click', resetGrid);
-        });
-    </script>
-    <script src="wordbank.js"></script>
+                shuffleGrid();
+            });
+        </script>
 </body>
 
 </html>
