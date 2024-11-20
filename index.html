@@ -280,6 +280,7 @@
                             currentSet.every((val, index) => val === sequenceSet[index])) {
                             for (let k = 0; k < 4; k++) {
                                 items[j + k].classList.add('correct');
+                                items[j + k].setAttribute('draggable', 'false');
                             }
                         }
                     }
