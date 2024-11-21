@@ -21,7 +21,8 @@
             --sidebar-bg: #ffffff;
             --selected-item: #0f0f0f;
             --selected-text: #889487;
-            --correct-item-bg:#98FB98;;
+            --correct-item-bg: #98FB98;
+            ;
             --border-color: #dee2e6;
             --hover-color: #007bff;
         }
@@ -329,7 +330,6 @@
             font-size: 24px;
             font-weight: bold;
         }
-
     </style>
 </head>
 
@@ -345,7 +345,7 @@
                 <i class="fas fa-question-circle"></i>
             </div>
         </div>
-        <div class="title">हिन्दी शब्द रचना&nbsp;[<span id="gridSize"></span>&nbsp;अक्षर]</div>
+        <div class="title">हिन्दी शब्द रचना</div>
         <div class="settings-menu" onclick="toggleMenu('right')">
             <i class="fas fa-cog"></i>
         </div>
@@ -375,14 +375,17 @@
             <div>
                 <div id="enD">
                     <p>
-                        Find the four Hindi words hidden in this puzzle by swaping letters around. Click on the first box to
-                        mark it for swapping then click another box to swap letters between them. When a correct word is arranged in any row then boxes will be marked as green and locked. Continue to find rest of the words.
+                        Find the four Hindi words hidden in this puzzle by swaping letters around. Click on the first
+                        box to
+                        mark it for swapping then click another box to swap letters between them. When a correct word is
+                        arranged in any row then boxes will be marked as green and locked. Continue to find rest of the
+                        words.
                     </p>
                 </div>
                 <div>&nbsp;</div>
                 <div id="enH">
                     <p>
-                        हिन्दी के चार शब्द दिये गयें हैं जिनके अक्षरों के क्रम बदल दिये गए हैं। अक्षरों का क्रम बदलने 
+                        हिन्दी के चार शब्द दिये गयें हैं जिनके अक्षरों के क्रम बदल दिये गए हैं। अक्षरों का क्रम बदलने
                         के लिए पहले अक्षर के डब्बे को क्लिक करें फिर दूसरे अक्षर के डब्बे को क्लिक करें। जब
                         कोई शब्द पूरा हो जाएगा तो उसका रंग हरा हो जाएगा और फिर उसके अक्षर स्थिर हो जाएंगे।
                     </p>
@@ -411,9 +414,9 @@
             </label>
         </div>
         <div class="toggle-container">
-            <span>3 अक्षर वाले शब्द</span>
+            <span>4 अक्षर वाले शब्द</span>
             <label class="switch">
-                <input type="checkbox" id="smallModeToggle" onchange="toggleSmallMode()">
+                <input type="checkbox" id="fourModeToggle" onchange="togglefourMode()">
                 <span class="slider"></span>
             </label>
         </div>
@@ -423,7 +426,8 @@
         <div class="grid-container" id="grid"></div>
         <div class="text-center mt-3 button-container">
             <button class="btn btn-secondary custom-button" id="resetBtn">Reset | नए शब्द</button>
-        </div></div>
+        </div>
+    </div>
 
 
     <footer class="footer">
@@ -493,12 +497,12 @@
             createGrid();
         }
 
-        function toggleSmallMode() {
-            const smallModeEnabled = document.getElementById('smallModeToggle').checked;
-            setCookie('smallMode', smallModeEnabled, 30);
-            console.log('Small Mode:', smallModeEnabled);
+        function togglefourMode() {
+            const fourModeEnabled = document.getElementById('fourModeToggle').checked;
+            setCookie('fourMode', fourModeEnabled, 30);
+            console.log('four Mode:', fourModeEnabled);
 
-            gridN = smallModeEnabled ? 3 : 4;
+            gridN = fourModeEnabled ? 4 : 3;
             createGrid();
         }
 
@@ -513,12 +517,12 @@
             // Read cookie values
             const darkMode = getCookie('darkMode') === 'true';
             const hardMode = getCookie('hardMode') === 'true';
-            const smallMode = getCookie('smallMode') === 'true';
+            const fourMode = getCookie('fourMode') === 'true';
 
             // Set toggle switches
             const darkModeToggle = document.getElementById('darkModeToggle');
             const hardModeToggle = document.getElementById('hardModeToggle');
-            const smallModeToggle = document.getElementById('smallModeToggle');
+            const fourModeToggle = document.getElementById('fourModeToggle');
 
             if (darkModeToggle) {
                 darkModeToggle.checked = darkMode;
@@ -528,19 +532,12 @@
                 hardModeToggle.checked = hardMode;
             }
 
-            if (smallModeToggle) {
-                smallModeToggle.checked = smallMode;
+            if (fourModeToggle) {
+                fourModeToggle.checked = fourMode;
             }
 
             matraOn = hardMode;
-
-            if(smallMode) {
-                gridN = 3;
-                gridCheck = 6;
-            }else {
-                gridN = 4;
-                gridCheck = 12;
-            }
+            gridN = fourMode ? 4 : 3;
 
             // Apply dark mode if enabled
             if (darkMode) {
@@ -553,7 +550,7 @@
             console.log('Initial Settings:', {
                 darkMode: darkMode,
                 hardMode: hardMode,
-                smallMode: smallMode
+                fourMode: fourMode
             });
         }
     </script>
