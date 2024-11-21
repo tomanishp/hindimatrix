@@ -345,7 +345,7 @@
                 <i class="fas fa-question-circle"></i>
             </div>
         </div>
-        <div class="title">हिन्दी शब्द रचना</div>
+        <div class="title"><span id="gridSize">3x3</span>&nbsp;हिन्दी शब्द रचना</div>
         <div class="settings-menu" onclick="toggleMenu('right')">
             <i class="fas fa-cog"></i>
         </div>
@@ -414,9 +414,9 @@
             </label>
         </div>
         <div class="toggle-container">
-            <span>4 अक्षर वाले शब्द</span>
+            <span>3 अक्षर वाले शब्द</span>
             <label class="switch">
-                <input type="checkbox" id="fourModeToggle" onchange="togglefourMode()">
+                <input type="checkbox" id="threeModeToggle" onchange="toggleThreeMode()">
                 <span class="slider"></span>
             </label>
         </div>
@@ -497,12 +497,12 @@
             createGrid();
         }
 
-        function togglefourMode() {
-            const fourModeEnabled = document.getElementById('fourModeToggle').checked;
-            setCookie('fourMode', fourModeEnabled, 30);
-            console.log('four Mode:', fourModeEnabled);
+        function toggleThreeMode() {
+            const threeModeEnabled = document.getElementById('threeModeToggle').checked;
+            setCookie('threeMode', threeModeEnabled, 30);
+            console.log('three Mode:', threeModeEnabled);
 
-            gridN = fourModeEnabled ? 4 : 3;
+            gridN = threeModeEnabled ? 3 : 4;
             createGrid();
         }
 
@@ -517,12 +517,12 @@
             // Read cookie values
             const darkMode = getCookie('darkMode') === 'true';
             const hardMode = getCookie('hardMode') === 'true';
-            const fourMode = getCookie('fourMode') === 'true';
+            const threeMode = getCookie('threeMode') === 'true';
 
             // Set toggle switches
             const darkModeToggle = document.getElementById('darkModeToggle');
             const hardModeToggle = document.getElementById('hardModeToggle');
-            const fourModeToggle = document.getElementById('fourModeToggle');
+            const threeModeToggle = document.getElementById('threeModeToggle');
 
             if (darkModeToggle) {
                 darkModeToggle.checked = darkMode;
@@ -532,12 +532,12 @@
                 hardModeToggle.checked = hardMode;
             }
 
-            if (fourModeToggle) {
-                fourModeToggle.checked = fourMode;
+            if (threeModeToggle) {
+                threeModeToggle.checked = threeMode;
             }
 
             matraOn = hardMode;
-            gridN = fourMode ? 4 : 3;
+            gridN = threeMode ? 3 : 4;
 
             // Apply dark mode if enabled
             if (darkMode) {
@@ -550,7 +550,7 @@
             console.log('Initial Settings:', {
                 darkMode: darkMode,
                 hardMode: hardMode,
-                fourMode: fourMode
+                threeMode: threeMode
             });
         }
     </script>

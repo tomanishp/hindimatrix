@@ -1,5 +1,5 @@
-const preMatra = ['ु', 'ू', 'ि', 'ा', 'ी', '्', 'ो', 'ौ', 'े'];
-const postMatra = [];
+const preMatra = ['ु', 'ू', 'ि', 'ा', 'ी', '्', 'ो', 'ौ', 'े', 'ं'];
+const postMatra = ['्'];
 
 let wordBank33 = [
     'अगर',
@@ -112,12 +112,56 @@ let wordBank44 = [
 ];
 
 let wordBank44L = [
-    'परिवार',
+    'अधिकार',
     'अनजाने',
-    'अनुवाद',
     'अनुकूल',
+    'अनुरोध',
+    'अनुवाद',
+    'अभिनव',
+    'अभिषेक',
+    'कालातीत',
+    'किफायती',
+    'जागरूक',
+    'दुराचार',
+    'नियोजन',
+    'निराधार',
+    'परिवार',
+    'पहचान',
+    'पारिजात',
+    'बहीखाता',
+    'राजभाषा',
+    'रूपरेखा',
+    'रोजगार',
+    'वकालत',
+    'वसीयत',
+    'विज्ञापन',
+    'वितरण',
+    'विभागीय',
+    'विवरण',
+    'विवादित',
+    'शिकायत',
+    'समझना',
+    'समझौता',
+    'सरकार',
+    'सराहना',
+    'सहमति',
+    'साधारण',
+    'सेवाकाल',
+    'हड़ताल'
 
 ];
+
+let wordBank44La = [
+    'प्रावधान',
+    'मध्यस्थ',
+    'व्यवहार',
+    'प्रचलित',
+    'व्यवधान',
+    'कल्पनीय'
+
+]
+    ;
+
 
 function getRandomWords() {
 
@@ -143,9 +187,14 @@ function formatComplexWords(allChars) {
     let outText = [];
 
     for (let i = 0; i < allChars.length; i++) {
-        if (preMatra.includes(allChars[i])) {
-            outText.pop();
-            let c2 = ([allChars[i - 1], allChars[i]]).join('');
+        if (postMatra.includes(allChars[i])) {
+            let t1 = outText.pop();
+            let c1 = ([t1, allChars[i], allChars[i + 1]]).join('');
+            outText.push(c1);
+            i++;
+        } else if (preMatra.includes(allChars[i])) {
+            let t2 = outText.pop();
+            let c2 = ([t2, allChars[i]]).join('');
             outText.push(c2);
         } else {
             outText.push(allChars[i]);
