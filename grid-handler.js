@@ -1,5 +1,5 @@
 let matraOn = false;
-let gridN = 4;
+let gridN = 3;
 let alphabet = [];
 let selectedItem = null;
 let originalSequence = []
@@ -8,7 +8,6 @@ function createGrid() {
     alphabet = getRandomWords();
     originalSequence = [...alphabet];
     const grid = document.getElementById('grid');
-    document.getElementById('gridSize').innerText = gridN;
     grid.innerHTML = '';
 
     gridCheck = gridN * (gridN -1 );
