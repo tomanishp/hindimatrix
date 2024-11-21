@@ -117,7 +117,7 @@
         }
 
         .help-sidebar {
-            left: -400x;
+            left: -400px;
             width: 400px;
         }
 
@@ -182,7 +182,8 @@
 
         .content {
             flex: 1;
-            padding: 2rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
             background-color: var(--bg-color);
         }
 
@@ -265,7 +266,7 @@
             margin-bottom: 10px;
             padding: 2px;
             background-color: var(--bg-color);
-            min-height: 80px;
+            min-height: 70px;
             transition: background-color 0.3s;
             position: relative;
             display: flex;
@@ -344,7 +345,7 @@
                 <i class="fas fa-question-circle"></i>
             </div>
         </div>
-        <div class="title">हिन्दी शब्द रचना</div>
+        <div class="title">हिन्दी शब्द रचना&nbsp;[<span id="gridSize"></span>&nbsp;अक्षर]</div>
         <div class="settings-menu" onclick="toggleMenu('right')">
             <i class="fas fa-cog"></i>
         </div>
@@ -396,21 +397,21 @@
             <button class="close-button" onclick="toggleMenu('right')">&times;</button>
         </div>
         <div class="toggle-container">
-            <span>Dark Mode</span>
+            <span>डार्क मोड</span>
             <label class="switch">
                 <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
                 <span class="slider"></span>
             </label>
         </div>
         <div class="toggle-container">
-            <span>Hard Mode</span>
+            <span>मात्रा वाले शब्द</span>
             <label class="switch">
                 <input type="checkbox" id="hardModeToggle" onchange="toggleHardMode()">
                 <span class="slider"></span>
             </label>
         </div>
         <div class="toggle-container">
-            <span>3x3 Words</span>
+            <span>3 अक्षर वाले शब्द</span>
             <label class="switch">
                 <input type="checkbox" id="smallModeToggle" onchange="toggleSmallMode()">
                 <span class="slider"></span>
@@ -488,19 +489,16 @@
             const hardModeEnabled = document.getElementById('hardModeToggle').checked;
             setCookie('hardMode', hardModeEnabled, 30);
             console.log('Hard Mode:', hardModeEnabled);
+            matraOn = hardModeEnabled;
+            createGrid();
         }
 
         function toggleSmallMode() {
             const smallModeEnabled = document.getElementById('smallModeToggle').checked;
             setCookie('smallMode', smallModeEnabled, 30);
             console.log('Small Mode:', smallModeEnabled);
-            if(smallModeEnabled) {
-                gridN = 3;
-                gridCheck = 6;
-            }else {
-                gridN = 4;
-                gridCheck = 12;
-            }
+
+            gridN = smallModeEnabled ? 3 : 4;
             createGrid();
         }
 
@@ -533,6 +531,8 @@
             if (smallModeToggle) {
                 smallModeToggle.checked = smallMode;
             }
+
+            matraOn = hardMode;
 
             if(smallMode) {
                 gridN = 3;

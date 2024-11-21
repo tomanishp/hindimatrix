@@ -1,5 +1,5 @@
+let matraOn = false;
 let gridN = 4;
-let gridCheck = 12;
 let alphabet = [];
 let selectedItem = null;
 let originalSequence = []
@@ -8,7 +8,10 @@ function createGrid() {
     alphabet = getRandomWords();
     originalSequence = [...alphabet];
     const grid = document.getElementById('grid');
+    document.getElementById('gridSize').innerText = gridN;
     grid.innerHTML = '';
+
+    gridCheck = gridN * (gridN -1 );
 
     for (let i = 0; i < gridN; i++) {
         const row = document.createElement('div');
@@ -16,7 +19,7 @@ function createGrid() {
 
         for (let j = 0; j < gridN; j++) {
             const item = document.createElement('div');
-            item.className = 'grid-item grid-item-' + gridN + '-'+ gridN;
+            item.className = 'grid-item grid-item-' + gridN + '-' + gridN;
             item.textContent = alphabet[i * gridN + j];
             item.addEventListener('click', handleItemClick);
             item.addEventListener('touchstart', handleTouchStart, { passive: false });
@@ -24,7 +27,7 @@ function createGrid() {
         }
         grid.appendChild(row);
     }
-    
+
     shuffleGrid();
 }
 

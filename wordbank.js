@@ -1,4 +1,40 @@
-let wordBank = [
+const preMatra = ['ु', 'ू', 'ि', 'ा', 'ी', '्', 'ो', 'ौ', 'े'];
+const postMatra = [];
+
+let wordBank33 = [
+    'अगर',
+    'कलम',
+    'कसक',
+    'कसम',
+    'तरस',
+    'नकल',
+    'नगर',
+    'नरम',
+    'नवल',
+    'नहर',
+    'पकड़',
+    'परत',
+    'पलट',
+    'पहल',
+    'बदल',
+    'भरम',
+    'मगर',
+    'शहर',
+    'सजग',
+    'सड़क',
+    'सरस',
+    'सहज'
+];
+
+let wordBank33L = [
+    'माधवी',
+    'नकली',
+    'तेवर',
+    'विधान',
+    'किसान',
+    'मछली'
+];
+let wordBank44 = [
     'अकबर',
     'अचकन',
     'अजगर',
@@ -57,14 +93,45 @@ let wordBank = [
     'हलचल'
 ];
 
+let wordBank44L = [
+    'परिवार',
+    'अनजाने',
+    'अनुवाद',
+    'अनुकूल',
+
+];
+
 function getRandomWords() {
 
     const selected = new Set();
-    
-    while(selected.size < 4) {
-        const randomIndex = Math.floor(Math.random() * wordBank.length);
-        selected.add(wordBank[randomIndex]);
+
+    let items = gridN > 3
+        ? [...wordBank44, ...(matraOn ? wordBank44L : [])]
+        : [...wordBank33, ...(matraOn ? wordBank33L : [])];
+
+
+    while (selected.size < 4) {
+        const randomIndex = Math.floor(Math.random() * items.length);
+        selected.add(items[randomIndex]);
     }
 
-    return Array.from(selected).join('').split('');
+    let allChars = Array.from(selected).join('').split('');
+
+    return formatComplexWords(allChars);
+}
+
+function formatComplexWords(allChars) {
+
+    let outText = [];
+
+    for (let i = 0; i < allChars.length; i++) {
+        if (preMatra.includes(allChars[i])) {
+            outText.pop();
+            let c2 = ([allChars[i - 1], allChars[i]]).join('');
+            outText.push(c2);
+        } else {
+            outText.push(allChars[i]);
+        }
+    }
+    return outText;
 }
