@@ -59,5 +59,12 @@ let wordBank = [
 
 function getRandomWords() {
 
-    return wordBank.sort(() => 0.5 - Math.random()).slice(0, 4);
+    const selected = new Set();
+    
+    while(selected.size < 4) {
+        const randomIndex = Math.floor(Math.random() * wordBank.length);
+        selected.add(wordBank[randomIndex]);
+    }
+
+    return Array.from(selected).join('').split('');
 }
