@@ -43,7 +43,6 @@ function initializePuzzle() {
     } else {
         gridSequence = [...originalSequence];
         shuffleArray();
-        document.getElementById('movesCounter').innerText = `${movesCounter}*`;
     }
 
     //Create grid
@@ -158,8 +157,11 @@ function checkRows() {
 
     // Check if all rows match
     if (matchCount === gridN) {
+        document.getElementById('divStats').style.display = "block";
         showWinModal();
         //console.log('You won!');
+    }else {
+        document.getElementById('divStats').style.display = "none";
     }
 }
 
