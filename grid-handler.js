@@ -43,6 +43,7 @@ function initializePuzzle() {
     } else {
         gridSequence = [...originalSequence];
         shuffleArray();
+        document.getElementById('movesCounter').innerText = `${movesCounter}*`;
     }
 
     //Create grid

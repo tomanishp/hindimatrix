@@ -271,7 +271,7 @@
             margin-bottom: 10px;
             padding: 1px;
             background-color: var(--bg-color);
-            min-height: 60px;
+            min-height: 62px;
             transition: background-color 0.3s;
             position: relative;
             display: flex;
@@ -279,12 +279,12 @@
 
         .grid-item {
             border: 1px solid #dee2e6;
-            padding: 20px;
+            padding: 12px;
             margin: 1%;
             cursor: move;
             user-select: none;
             -webkit-user-select: none;
-            height: 70px;
+            height: 62px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -559,7 +559,7 @@
             } else {
                 expires.setHours(23, 59, 59, 0);
             }
-            document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/';
+            document.cookie = name + '=' + value + ';expires=' + expires.toLocaleString() + ';path=/';
         }
 
         function getCookie(name, def = null) {
