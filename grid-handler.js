@@ -16,8 +16,15 @@ function initializePuzzle() {
     if (gridArray.length > 0) {
         gridSequence = JSON.parse(gridArray);
         originalSequence = JSON.parse(originalArray);
+
+        /*
+        console.log('Loaded from store:', {
+            gridSequence: gridSequence,
+            originalSequence: originalSequence,
+            movesCounter: movesCounter
+        }); */
     } else {
-        originalSequence = getRandomWords();
+        originalSequence = getRandomWords(gridN);
         gridSequence = [...originalSequence];
         shuffleArray(gridSequence);
     }
@@ -88,13 +95,14 @@ function swapItems(item1, item2) {
     document.getElementById('movesCounter').innerText = movesCounter;
     storeGridData();
 
-    console.log('Move Log:', {
-        gridSequence: gridSequence,
-        originalSequence: originalSequence,
-        movesCounter: movesCounter
-    });
+
 }
 
+function clearAllCookies() {
+    setCookie('gridArray' + gridN, '', 0);
+    setCookie('orgArray' + gridN, '', 0);
+    setCookie('movesCounter' + gridN, 0, 0);
+}
 
 function storeGridData() {
     setCookie('gridArray' + gridN, JSON.stringify(gridSequence), 0);

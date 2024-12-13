@@ -430,7 +430,7 @@
 
 
     <footer class="footer">
-        <p>&copy; 2024 Vaishvik Hindi Parivar. All rights reserved.</p>
+        <p>&copy; 2024 Manish Pandey. All rights reserved.</p>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="wordbank.js"></script>
@@ -489,13 +489,13 @@
             const darkModeEnabled = document.getElementById('darkModeToggle').checked;
             document.body.classList.toggle('dark-mode', darkModeEnabled);
             setCookie('darkMode', darkModeEnabled, 100);
-            console.log('Dark Mode:', darkModeEnabled);
+            //console.log('Dark Mode:', darkModeEnabled);
         }
 
         function toggleThreeMode() {
             const threeModeEnabled = document.getElementById('threeModeToggle').checked;
             setCookie('threeMode', threeModeEnabled, 100);
-            console.log('three Mode:', threeModeEnabled);
+            //console.log('three Mode:', threeModeEnabled);
 
             gridN = threeModeEnabled ? 3 : 4;
             initializePuzzle();
@@ -534,11 +534,14 @@
                 document.body.classList.remove('dark-mode');
             }
 
+            /*
             // Log the initial states (for debugging)
             console.log('Initial Settings:', {
                 darkMode: darkMode,
                 threeMode: threeMode
             });
+
+            */
         }
     </script>
 </body>
