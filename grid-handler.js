@@ -8,14 +8,27 @@ let movesCounter = 0;
 function initializePuzzle() {
 
     movesCounter = getCookie('movesCounter' + gridN, 0);
-    const gridArray = getCookie('gridArray' + gridN, '');
-    const originalArray = getCookie('orgArray' + gridN, '');
+    let gridArray = '';
+    let originalArray = '';
 
     document.getElementById('movesCounter').innerText = movesCounter;
 
+    try {
+        gridArray = getCookie('gridArray' + gridN, '');
+        originalArray = getCookie('orgArray' + gridN, '');
+    } catch (exceptionVar) {
+        document.getElementById('movesCounter').innerText = 'Array load error';
+    }
+
+
     if (gridArray.length > 0) {
-        gridSequence = JSON.parse(gridArray);
-        originalSequence = JSON.parse(originalArray);
+        try {
+            gridSequence = JSON.parse(gridArray);
+            originalSequence = JSON.parse(originalArray);
+        } catch (exceptionVar) {
+            document.getElementById('movesCounter').innerText = 'JSON Load error';
+        }
+
 
         /*
         console.log('Loaded from store:', {
@@ -113,7 +126,7 @@ function storeGridData() {
 
 function checkRows() {
     const rows = document.getElementsByClassName('grid-row');
-    let matchCount  = 0;
+    let matchCount = 0;
 
     gridCheck = gridN * (gridN - 1);
 
@@ -128,7 +141,7 @@ function checkRows() {
                     item.classList.add('correct', 'disabled');
                 });
 
-                matchCount ++;
+                matchCount++;
                 break;
             }
         }
@@ -137,7 +150,7 @@ function checkRows() {
     // Check if all rows match
     if (matchCount === gridN) {
         showWinModal();
-        console.log('You won!');
+        //console.log('You won!');
     }
 }
 

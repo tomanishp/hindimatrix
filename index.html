@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
     <title>Hindi Words Formation - हिन्दी शब्द रचना</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -612,14 +613,14 @@
 
             gridN = threeMode ? 3 : 4;
 
-            initializePuzzle();
-
             // Apply dark mode if enabled
             if (darkMode) {
                 document.body.classList.add('dark-mode');
             } else {
                 document.body.classList.remove('dark-mode');
             }
+
+            initializePuzzle();
 
             /*
             // Log the initial states (for debugging)
@@ -662,9 +663,11 @@
         }
 
         async function shareResult() {
+            const dateString = new Date().toLocaleDateString();
             const shareText = `🧩 Hindi Matrix Puzzle\n` +
                 `Grid: ${gridN}x${gridN}\n` +
                 `Moves: ${movesCounter}\n` +
+                `Date: ${dateString}\n` +
                 `Come play with me! 🎮\n` +
                 `bit.ly/49D6YmZ`
                 ;
