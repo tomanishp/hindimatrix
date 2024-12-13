@@ -1,18 +1,34 @@
 let matraOn = false;
 let gridN = 4;
-let alphabet = [];
 let selectedItem = null;
-let originalSequence = []
+let originalSequence = [];
+let gridSequence = []
+let movesCounter = 0;
 
-function createGrid() {
-    alphabet = getRandomWords();
-    originalSequence = [...alphabet];
+function initializePuzzle() {
+
+    movesCounter = getCookie('movesCounter' + gridN, 0);
+    const gridArray = getCookie('gridArray' + gridN, '');
+    const originalArray = getCookie('orgArray' + gridN, '');
+
+    document.getElementById('movesCounter').innerText = movesCounter;
+
+    if (gridArray.length > 0) {
+        gridSequence = JSON.parse(gridArray);
+        originalSequence = JSON.parse(originalArray);
+    } else {
+        originalSequence = getRandomWords();
+        gridSequence = [...originalSequence];
+        shuffleArray(gridSequence);
+    }
+
+    //Create grid
     const grid = document.getElementById('grid');
     document.getElementById('gridSize').innerText = gridN + 'x' + gridN;
-    
+
     grid.innerHTML = '';
 
-    gridCheck = gridN * (gridN -1 );
+    gridCheck = gridN * (gridN - 1);
 
     for (let i = 0; i < gridN; i++) {
         const row = document.createElement('div');
@@ -21,7 +37,8 @@ function createGrid() {
         for (let j = 0; j < gridN; j++) {
             const item = document.createElement('div');
             item.className = 'grid-item grid-item-' + gridN + '-' + gridN;
-            item.textContent = alphabet[i * gridN + j];
+            item.textContent = gridSequence[i * gridN + j];
+            item.tag = (i * gridN + j);
             item.addEventListener('click', handleItemClick);
             item.addEventListener('touchstart', handleTouchStart, { passive: false });
             row.appendChild(item);
@@ -29,7 +46,8 @@ function createGrid() {
         grid.appendChild(row);
     }
 
-    shuffleGrid();
+    storeGridData();
+
 }
 
 function shuffleArray(array) {
@@ -37,16 +55,6 @@ function shuffleArray(array) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
-}
-
-function shuffleGrid() {
-    const items = Array.from(document.getElementsByClassName('grid-item'));
-    const values = items.map(item => item.textContent);
-    shuffleArray(values);
-    items.forEach((item, index) => {
-        item.textContent = values[index];
-        item.classList.remove('correct', 'disabled');
-    });
 }
 
 function handleItemClick(e) {
@@ -70,8 +78,28 @@ function handleTouchStart(e) {
 
 function swapItems(item1, item2) {
     const temp = item1.textContent;
+    gridSequence[item1.tag] = item2.textContent;
+    gridSequence[item2.tag] = temp;
+
     item1.textContent = item2.textContent;
     item2.textContent = temp;
+
+    movesCounter++;
+    document.getElementById('movesCounter').innerText = movesCounter;
+    storeGridData();
+
+    console.log('Move Log:', {
+        gridSequence: gridSequence,
+        originalSequence: originalSequence,
+        movesCounter: movesCounter
+    });
+}
+
+
+function storeGridData() {
+    setCookie('gridArray' + gridN, JSON.stringify(gridSequence), 0);
+    setCookie('orgArray' + gridN, JSON.stringify(originalSequence), 0);
+    setCookie('movesCounter' + gridN, movesCounter, 0);
 }
 
 function checkRows() {
@@ -94,7 +122,6 @@ function checkRows() {
 }
 
 
-
 $('#resetBtn').click(function () {
 
     const oldGrid = document.getElementById('grid');
@@ -103,7 +130,6 @@ $('#resetBtn').click(function () {
     newGrid.classList.add('grid-container');
     oldGrid.parentNode.replaceChild(newGrid, oldGrid);
     grid = newGrid;
-
 
     selectedItem = null;
     createGrid();

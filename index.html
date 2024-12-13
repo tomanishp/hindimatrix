@@ -98,6 +98,9 @@
         .title {
             font-size: 1.5rem;
             font-weight: bold;
+            text-wrap: wrap;
+            width: 60%;
+            text-align: center;
         }
 
         .sidebar {
@@ -361,7 +364,8 @@
         <ul class="menu-items">
             <li><a href="https://tomanishp.github.io/matrix" target="_blank">4x4 Grid Puzzle</a></li>
             <li><a href="https://tomanishp.github.io/hindimatra" target="_blank">Hindi Matra Checking Tool</a></li>
-            <li><a href="https://kavishavi.github.io/hinglishwordle/" target="_blank">Hindi Wordle - By Rahul Upadhyaya</a></li>
+            <li><a href="https://kavishavi.github.io/hinglishwordle/" target="_blank">Hindi Wordle - By Rahul
+                    Upadhyaya</a></li>
             <li>Contact</li>
         </ul>
     </div>
@@ -407,13 +411,6 @@
             </label>
         </div>
         <div class="toggle-container">
-            <span>मात्रा वाले शब्द</span>
-            <label class="switch">
-                <input type="checkbox" id="hardModeToggle" onchange="toggleHardMode()">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="toggle-container">
             <span>3 अक्षर वाले शब्द</span>
             <label class="switch">
                 <input type="checkbox" id="threeModeToggle" onchange="toggleThreeMode()">
@@ -425,13 +422,15 @@
     <div class="content">
         <div class="grid-container" id="grid"></div>
         <div class="text-center mt-3 button-container">
-            <button class="btn btn-secondary custom-button" id="resetBtn">Reset | नए शब्द</button>
+            <p>Steps:<span id="movesCounter">0</span></p>
+            <button style="display: none;" class="btn btn-secondary custom-button" id="resetBtn">Reset | नए
+                शब्द</button>
         </div>
     </div>
 
 
     <footer class="footer">
-        <p>&copy; 2024 Manish Pandey. All rights reserved.</p>
+        <p>&copy; 2024 Vaishvik Hindi Parivar. All rights reserved.</p>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="wordbank.js"></script>
@@ -467,11 +466,15 @@
 
         function setCookie(name, value, days) {
             const expires = new Date();
-            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            if (days > 0) {
+                expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            } else {
+                expires.setHours(23, 59, 59, 0);
+            }
             document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/';
         }
 
-        function getCookie(name) {
+        function getCookie(name, def = null) {
             const nameEQ = name + "=";
             const ca = document.cookie.split(';');
             for (let i = 0; i < ca.length; i++) {
@@ -479,65 +482,50 @@
                 while (c.charAt(0) === ' ') c = c.substring(1, c.length);
                 if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
             }
-            return null;
+            return def;
         }
 
         function toggleDarkMode() {
             const darkModeEnabled = document.getElementById('darkModeToggle').checked;
             document.body.classList.toggle('dark-mode', darkModeEnabled);
-            setCookie('darkMode', darkModeEnabled, 30);
+            setCookie('darkMode', darkModeEnabled, 100);
             console.log('Dark Mode:', darkModeEnabled);
-        }
-
-        function toggleHardMode() {
-            const hardModeEnabled = document.getElementById('hardModeToggle').checked;
-            setCookie('hardMode', hardModeEnabled, 30);
-            console.log('Hard Mode:', hardModeEnabled);
-            matraOn = hardModeEnabled;
-            createGrid();
         }
 
         function toggleThreeMode() {
             const threeModeEnabled = document.getElementById('threeModeToggle').checked;
-            setCookie('threeMode', threeModeEnabled, 30);
+            setCookie('threeMode', threeModeEnabled, 100);
             console.log('three Mode:', threeModeEnabled);
 
             gridN = threeModeEnabled ? 3 : 4;
-            createGrid();
+            initializePuzzle();
         }
 
         // Initialize toggles from cookies
         window.onload = function () {
             initializeFromCookies();
-            // Initialize the grid
-            createGrid();
         }
 
         function initializeFromCookies() {
             // Read cookie values
             const darkMode = getCookie('darkMode') === 'true';
-            const hardMode = getCookie('hardMode') === 'true';
             const threeMode = getCookie('threeMode') === 'true';
 
             // Set toggle switches
             const darkModeToggle = document.getElementById('darkModeToggle');
-            const hardModeToggle = document.getElementById('hardModeToggle');
             const threeModeToggle = document.getElementById('threeModeToggle');
 
             if (darkModeToggle) {
                 darkModeToggle.checked = darkMode;
             }
 
-            if (hardModeToggle) {
-                hardModeToggle.checked = hardMode;
-            }
-
             if (threeModeToggle) {
                 threeModeToggle.checked = threeMode;
             }
 
-            matraOn = hardMode;
             gridN = threeMode ? 3 : 4;
+
+            initializePuzzle();
 
             // Apply dark mode if enabled
             if (darkMode) {
@@ -549,7 +537,6 @@
             // Log the initial states (for debugging)
             console.log('Initial Settings:', {
                 darkMode: darkMode,
-                hardMode: hardMode,
                 threeMode: threeMode
             });
         }
