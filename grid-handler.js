@@ -113,6 +113,9 @@ function storeGridData() {
 
 function checkRows() {
     const rows = document.getElementsByClassName('grid-row');
+    let matchCount  = 0;
+
+    gridCheck = gridN * (gridN - 1);
 
     Array.from(rows).forEach(row => {
         const items = Array.from(row.getElementsByClassName('grid-item'));
@@ -124,12 +127,19 @@ function checkRows() {
                 items.forEach(item => {
                     item.classList.add('correct', 'disabled');
                 });
+
+                matchCount ++;
                 break;
             }
         }
     });
-}
 
+    // Check if all rows match
+    if (matchCount === gridN) {
+        showWinModal();
+        console.log('You won!');
+    }
+}
 
 $('#resetBtn').click(function () {
 
