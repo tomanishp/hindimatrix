@@ -3,6 +3,7 @@ let gridN = 4;
 let selectedItem = null;
 let originalSequence = [];
 let gridSequence = []
+let idxSequence = [];
 let movesCounter = 0;
 
 function initializePuzzle() {
@@ -20,15 +21,18 @@ function initializePuzzle() {
         document.getElementById('movesCounter').innerText = 'Array load error';
     }
 
+    originalSequence = getRandomWords(gridN);
 
-    if (gridArray.length > 0) {
+    if (gridArray.length > 5) {
         try {
-            gridSequence = [...gridArray.split('$')];
-            originalSequence = [...originalArray.split('$')];
+            gridSequence = [];
+            idxSequence = [...gridArray.split('$')];
+            for (let i = 0; i < idxSequence.length; i++) {
+                gridSequence[i] = originalSequence[idxSequence[i]];
+            }             
         } catch (exceptionVar) {
-            document.getElementById('movesCounter').innerText = 'JSON Load error';
+            document.getElementById('movesCounter').innerText = 'Reload error';
         }
-
 
         /*
         console.log('Loaded from store:', {
@@ -37,9 +41,8 @@ function initializePuzzle() {
             movesCounter: movesCounter
         }); */
     } else {
-        originalSequence = getRandomWords(gridN);
         gridSequence = [...originalSequence];
-        shuffleArray(gridSequence);
+        shuffleArray();
     }
 
     //Create grid
@@ -71,10 +74,13 @@ function initializePuzzle() {
 
 }
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
+function shuffleArray() {
+    idxSequence = [...Array(gridN * gridN).keys()];
+
+    for (let i = gridSequence.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        [gridSequence[i], gridSequence[j]] = [gridSequence[j], gridSequence[i]];
+        [idxSequence[i], idxSequence[j]] = [idxSequence[j], idxSequence[i]];        
     }
 }
 
@@ -102,6 +108,10 @@ function swapItems(item1, item2) {
     gridSequence[item1.tag] = item2.textContent;
     gridSequence[item2.tag] = temp;
 
+    const idx1 = idxSequence[item1.tag];
+    idxSequence[item1.tag] = idxSequence[item2.tag];
+    idxSequence[item2.tag] = idx1;    
+
     item1.textContent = item2.textContent;
     item2.textContent = temp;
 
@@ -119,8 +129,7 @@ function clearAllCookies() {
 }
 
 function storeGridData() {
-    setCookie('gridArray' + gridN, gridSequence.join('$'), 0);
-    setCookie('orgArray' + gridN, originalSequence.join('$'), 0);
+    setCookie('gridArray' + gridN, idxSequence.join('$'), 0);
     setCookie('movesCounter' + gridN, movesCounter, 0);
 }
 
