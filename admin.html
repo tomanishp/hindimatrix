@@ -42,6 +42,7 @@
     <div class="button-container">
         <button onclick="displayCookies()">Load Cookies</button>
         <button onclick="clearAllCookies()">Clear Cookies</button>
+        <button onclick="setDummyCookies()">Dummy Cookies</button>
     </div>
     <div id="cookieDisplay"></div>
 
@@ -64,7 +65,12 @@
                     </div>`;
             });
             
-            cookieDisplay.innerHTML = cookieHTML;
+            cookieHTML += `<br />
+                    <div class="cookie-item">
+                        <strong>All Values:</strong> ${decodeURIComponent(cookies)}
+                    </div>`;
+
+                    cookieDisplay.innerHTML = cookieHTML;
         }
 
         function clearAllCookies() {
@@ -85,6 +91,23 @@
 
         // Optional: Display cookies when page loads
         displayCookies();
+
+        function setCookie(name, value, days) {
+            const expires = new Date();
+            if (days > 0) {
+                expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            } else {
+                expires.setHours(23, 59, 59, 0);
+            }
+            document.cookie = name + '=' + value + ';expires=' + expires.toLocaleString() + ';path=/';
+        }
+
+        function setDummyCookies(){
+            setCookie('gridArray4','3$14$1$10$8$2$4$15$12$13$0$5$7$9$6$11')
+            setCookie('movesCounter4','0')
+            setCookie('gridArray3','3$$1$8$2$4$0$5$7$6')
+            setCookie('movesCounter3','0')
+        }
     </script>
 </body>
 </html>
