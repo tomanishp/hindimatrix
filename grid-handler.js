@@ -9,13 +9,13 @@ let movesCounter = 0;
 function initializePuzzle() {
 
     movesCounter = getCookie('movesCounter' + gridN, 0);
-    let gridArray = '';
+    let userGrid = '';
     let originalArray = '';
 
     document.getElementById('movesCounter').innerText = movesCounter;
 
     try {
-        gridArray = getCookie('gridArray' + gridN, '');
+        userGrid = getCookie('userGrid' + gridN, '');
         originalArray = getCookie('orgArray' + gridN, '');
     } catch (exceptionVar) {
         document.getElementById('movesCounter').innerText = 'Array load error';
@@ -23,10 +23,10 @@ function initializePuzzle() {
 
     originalSequence = getRandomWords(gridN);
 
-    if (gridArray.length > 5) {
+    if (userGrid.length > 5) {
         try {
             gridSequence = [];
-            idxSequence = [...gridArray.split('$')];
+            idxSequence = [...userGrid.split('$')];
             for (let i = 0; i < idxSequence.length; i++) {
                 gridSequence[i] = originalSequence[idxSequence[i]];
             }             
@@ -124,13 +124,12 @@ function swapItems(item1, item2) {
 }
 
 function clearAllCookies() {
-    setCookie('gridArray' + gridN, '', 0);
-    setCookie('orgArray' + gridN, '', 0);
+    setCookie('userGrid' + gridN, '', 0);
     setCookie('movesCounter' + gridN, 0, 0);
 }
 
 function storeGridData() {
-    setCookie('gridArray' + gridN, idxSequence.join('$'), 0);
+    setCookie('userGrid' + gridN, idxSequence.join('$'), 0);
     setCookie('movesCounter' + gridN, movesCounter, 0);
 }
 

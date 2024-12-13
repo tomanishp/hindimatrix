@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Cookie Manager</title>
@@ -8,9 +9,11 @@
             font-family: Arial, sans-serif;
             padding: 20px;
         }
+
         .button-container {
             margin-bottom: 20px;
         }
+
         button {
             padding: 10px 20px;
             margin-right: 10px;
@@ -20,15 +23,18 @@
             border: none;
             border-radius: 4px;
         }
+
         button:hover {
             background-color: #45a049;
         }
+
         #cookieDisplay {
             background-color: #f5f5f5;
             padding: 15px;
             border-radius: 4px;
             min-height: 100px;
         }
+
         .cookie-item {
             margin-bottom: 8px;
             padding: 8px;
@@ -38,6 +44,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="button-container">
         <button onclick="displayCookies()">Load Cookies</button>
@@ -50,7 +57,7 @@
         function displayCookies() {
             const cookieDisplay = document.getElementById('cookieDisplay');
             const cookies = document.cookie.split(';');
-            
+
             if (cookies.length === 0 || cookies[0] === '') {
                 cookieDisplay.innerHTML = '<div class="cookie-item">No cookies found</div>';
                 return;
@@ -63,19 +70,23 @@
                     <div class="cookie-item">
                         <strong>${name}:</strong> ${decodeURIComponent(value)}
                     </div>`;
+                    cookieHTML += `
+                    <div class="cookie-item">
+                        ${cookie}
+                    </div>`;
             });
-            
+
             cookieHTML += `<br />
                     <div class="cookie-item">
                         <strong>All Values:</strong> ${decodeURIComponent(cookies)}
                     </div>`;
 
-                    cookieDisplay.innerHTML = cookieHTML;
+            cookieDisplay.innerHTML = cookieHTML;
         }
 
         function clearAllCookies() {
             const cookies = document.cookie.split(';');
-            
+
             cookies.forEach(cookie => {
                 const name = cookie.split('=')[0].trim();
                 // Set expiration to past date to delete cookie
@@ -84,7 +95,7 @@
 
             // Refresh the display
             displayCookies();
-            
+
             // Show confirmation
             alert('All cookies have been cleared!');
         }
@@ -102,12 +113,13 @@
             document.cookie = name + '=' + value + ';expires=' + expires.toLocaleString() + ';path=/';
         }
 
-        function setDummyCookies(){
-            setCookie('gridArray4','3$14$1$10$8$2$4$15$12$13$0$5$7$9$6$11')
-            setCookie('movesCounter4','0')
-            setCookie('gridArray3','3$$1$8$2$4$0$5$7$6')
-            setCookie('movesCounter3','0')
+        function setDummyCookies() {
+            setCookie('gridArray4', '3$14$1$10$8$2$4$15$12$13$0$5$7$9$6$11')
+            setCookie('movesCounter4', '0')
+            setCookie('gridArray3', '3$$1$8$2$4$0$5$7$6')
+            setCookie('movesCounter3', '0')
         }
     </script>
 </body>
+
 </html>
