@@ -23,8 +23,8 @@ function initializePuzzle() {
 
     if (gridArray.length > 0) {
         try {
-            gridSequence = JSON.parse(gridArray);
-            originalSequence = JSON.parse(originalArray);
+            gridSequence = [...gridArray.split(';')];
+            originalSequence = [...originalArray.split(';')];
         } catch (exceptionVar) {
             document.getElementById('movesCounter').innerText = 'JSON Load error';
         }
@@ -119,8 +119,8 @@ function clearAllCookies() {
 }
 
 function storeGridData() {
-    setCookie('gridArray' + gridN, JSON.stringify(gridSequence), 0);
-    setCookie('orgArray' + gridN, JSON.stringify(originalSequence), 0);
+    setCookie('gridArray' + gridN, gridSequence.join(';'), 0);
+    setCookie('orgArray' + gridN, originalSequence.join(';'), 0);
     setCookie('movesCounter' + gridN, movesCounter, 0);
 }
 
