@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .button-container {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #cookieDisplay {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            min-height: 100px;
+        }
+        .cookie-item {
+            margin-bottom: 8px;
+            padding: 8px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <button onclick="displayCookies()">Load Cookies</button>
+        <button onclick="clearAllCookies()">Clear Cookies</button>
+    </div>
+    <div id="cookieDisplay"></div>
+
+    <script>
+        function displayCookies() {
+            const cookieDisplay = document.getElementById('cookieDisplay');
+            const cookies = document.cookie.split(';');
+            
+            if (cookies.length === 0 || cookies[0] === '') {
+                cookieDisplay.innerHTML = '<div class="cookie-item">No cookies found</div>';
+                return;
+            }
+
+            let cookieHTML = '';
+            cookies.forEach(cookie => {
+                const [name, value] = cookie.trim().split('=');
+                cookieHTML += `
+                    <div class="cookie-item">
+                        <strong>${name}:</strong> ${decodeURIComponent(value)}
+                    </div>`;
+            });
+            
+            cookieDisplay.innerHTML = cookieHTML;
+        }
+
+        function clearAllCookies() {
+            const cookies = document.cookie.split(';');
+            
+            cookies.forEach(cookie => {
+                const name = cookie.split('=')[0].trim();
+                // Set expiration to past date to delete cookie
+                document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+            });
+
+            // Refresh the display
+            displayCookies();
+            
+            // Show confirmation
+            alert('All cookies have been cleared!');
+        }
+
+        // Optional: Display cookies when page loads
+        displayCookies();
+    </script>
+</body>
+</html>
