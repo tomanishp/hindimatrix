@@ -1,3 +1,8 @@
+let today = new Date().toISOString().slice(0, 10);
+let playCount = 0;
+let winCount = 0
+let sreakCount = 0;
+let streakMax = 0;
 let matraOn = false;
 let gridN = 4;
 let selectedItem = null;
@@ -6,19 +11,35 @@ let gridSequence = []
 let idxSequence = [];
 let movesCounter = 0;
 
+function setValue(key, value) {
+    window.localStorage.setItem(key, value);
+}
+
+
+function getValue(key, defVal = null) {
+    let val = window.localStorage.getItem(key);
+
+    if (val == null && defVal != null) {
+        val = defVal;
+    }
+    return val;
+}
+
 function initializePuzzle() {
 
-    movesCounter = getCookie('movesCounter' + gridN, 0);
+    movesCounter = getValue('movesCounter' + gridN, 0);
     let userGrid = '';
     let originalArray = '';
 
     document.getElementById('movesCounter').innerText = movesCounter;
+    document.getElementById('gridHindi').innerText = gridN == 3 ? 'तीन' : 'चार';
+    document.getElementById('gridEng').innerText = gridN == 3 ? 'three' : 'four';
 
     try {
-        userGrid = getCookie('userGrid' + gridN, '');
-        originalArray = getCookie('orgArray' + gridN, '');
+        userGrid = getValue('userGrid' + gridN, '');
+        originalArray = getValue('orgArray' + gridN, '');
     } catch (exceptionVar) {
-        document.getElementById('movesCounter').innerText = 'Array load error';
+        //document.getElementById('movesCounter').innerText = 'Array load error';
     }
 
     originalSequence = getRandomWords(gridN);
@@ -29,9 +50,9 @@ function initializePuzzle() {
             idxSequence = [...userGrid.split('$')];
             for (let i = 0; i < idxSequence.length; i++) {
                 gridSequence[i] = originalSequence[idxSequence[i]];
-            }             
+            }
         } catch (exceptionVar) {
-            document.getElementById('movesCounter').innerText = 'Reload error';
+            //document.getElementById('movesCounter').innerText = 'Reload error';
         }
 
         /*
@@ -80,7 +101,7 @@ function shuffleArray() {
     for (let i = gridSequence.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [gridSequence[i], gridSequence[j]] = [gridSequence[j], gridSequence[i]];
-        [idxSequence[i], idxSequence[j]] = [idxSequence[j], idxSequence[i]];        
+        [idxSequence[i], idxSequence[j]] = [idxSequence[j], idxSequence[i]];
     }
 }
 
@@ -110,7 +131,7 @@ function swapItems(item1, item2) {
 
     const idx1 = idxSequence[item1.tag];
     idxSequence[item1.tag] = idxSequence[item2.tag];
-    idxSequence[item2.tag] = idx1;    
+    idxSequence[item2.tag] = idx1;
 
     item1.textContent = item2.textContent;
     item2.textContent = temp;
@@ -123,13 +144,13 @@ function swapItems(item1, item2) {
 }
 
 function clearAllCookies() {
-    setCookie('userGrid' + gridN, '', 0);
-    setCookie('movesCounter' + gridN, 0, 0);
+    setValue('userGrid' + gridN, '');
+    setValue('movesCounter' + gridN, 0);
 }
 
 function storeGridData() {
-    setCookie('userGrid' + gridN, idxSequence.join('$'), 0);
-    setCookie('movesCounter' + gridN, movesCounter, 0);
+    setValue('userGrid' + gridN, idxSequence.join('$'));
+    setValue('movesCounter' + gridN, movesCounter);
 }
 
 function checkRows() {
@@ -157,11 +178,16 @@ function checkRows() {
 
     // Check if all rows match
     if (matchCount === gridN) {
-        document.getElementById('divStats').style.display = "block";
+        document.getElementById('rowShare').style.display = "block";
+        document.getElementById('pWin').style.display = "block";
+        document.getElementById('pPlay').style.display = "none";
+
         showWinModal();
         //console.log('You won!');
-    }else {
-        document.getElementById('divStats').style.display = "none";
+    } else {
+        document.getElementById('pWin').style.display = "none";
+        document.getElementById('pPlay').style.display = "block";
+        document.getElementById('rowShare').style.display = "none";
     }
 }
 

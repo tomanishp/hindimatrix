@@ -58,6 +58,10 @@
             transition: all 0.3s ease;
         }
 
+        hr {
+            border: 1px solid var(--border-color);
+        }
+
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -73,7 +77,7 @@
             gap: 10px;
         }
 
-        
+
         .right-section {
             display: flex;
             align-items: center;
@@ -360,7 +364,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
             z-index: 1000;
         }
 
@@ -373,10 +376,10 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
             max-width: 90%;
             width: 400px;
             z-index: 1001;
+            background-color: var(--sidebar-bg);
         }
 
         .modal-header {
@@ -389,7 +392,6 @@
         .modal-stats {
             margin: 15px 0;
             padding: 10px;
-            background-color: var(--secondary-bg-color, #f5f5f5);
             border-radius: 5px;
         }
 
@@ -397,11 +399,19 @@
             font-size: 18px;
             margin: 15px 0;
             color: var(--text-color);
+            min-width: 50%;
+            text-align: right;
+            border-right: 1px #0a0a0a;
+        }
+
+        .model-row {
+            display: flex;
+            width: 100%;
         }
 
         .share-button {
             background-color: var(--correct-item-bg);
-            color: var(--selected-text);
+            color: var(--button-text);
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
@@ -443,6 +453,50 @@
             font-size: 20px;
             color: var(--button-text);
         }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 0;
+        }
+
+        h1 {
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        #statistics {
+            display: flex;
+        }
+
+        .statistic-container {
+            flex: 1;
+        }
+
+        .statistic-container .statistic {
+            font-size: 36px;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+
+
+        .statistic-container .label {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -460,7 +514,7 @@
         </div>
         <div class="title"><span id="gridSize">3x3</span>&nbsp;हिन्दी शब्द रचना</div>
         <div class="right-section">
-            <div id="divStats" onclick="showWinModal()" style="display: none;"> <svg xmlns="http://www.w3.org/2000/svg" height="24"
+            <div id="divStats" onclick="showWinModal()"> <svg xmlns="http://www.w3.org/2000/svg" height="24"
                     viewBox="0 0 24 24" width="24">
                     <path fill="var(--text-color)"
                         d="M16,11V3H8v6H2v12h20V11H16z M10,5h4v14h-4V5z M4,11h4v8H4V11z M20,19h-4v-6h4V19z"></path>
@@ -497,7 +551,8 @@
             <div>
                 <div id="enD">
                     <p>
-                        Find the four Hindi words hidden in this puzzle by swaping letters around. Click on the first
+                        Find the&nbsp;<span id="gridEng">four</span>&nbsp;Hindi words hidden in this puzzle by swaping
+                        letters around. Click on the first
                         box to
                         mark it for swapping then click another box to swap letters between them. When a correct word is
                         arranged in any row then boxes will be marked as green and locked. Continue to find rest of the
@@ -507,7 +562,8 @@
                 <div>&nbsp;</div>
                 <div id="enH">
                     <p>
-                        हिन्दी के चार शब्द दिये गयें हैं जिनके अक्षरों के क्रम बदल दिये गए हैं। अक्षरों का क्रम बदलने
+                        हिन्दी के&nbsp;<span id="gridHindi">चार</span>&nbsp;शब्द दिये गयें हैं जिनके अक्षरों के क्रम बदल
+                        दिये गए हैं। अक्षरों का क्रम बदलने
                         के लिए पहले अक्षर के डब्बे को क्लिक करें फिर दूसरे अक्षर के डब्बे को क्लिक करें। जब
                         कोई शब्द पूरा हो जाएगा तो उसका रंग हरा हो जाएगा और फिर उसके अक्षर स्थिर हो जाएंगे।
                     </p>
@@ -550,18 +606,48 @@
     <div id="winModal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-modal" onclick="closeWinModal()">×</span>
-            <div class="modal-header">🎉 Congratulations! 🎉</div>
-            <div class="modal-stats">
-                <p>You solved it in <span id="moveCount">0</span> moves!</p>
+            <div class="modal-header">Statistics</div>
+            <div class="model-row" style="display: none;">
+                <div id="statistics">
+        
+                    <div class="statistic-container">
+                        <div class="statistic" id="playCount">1</div>
+                        <div class="label">Played</div>
+                    </div>
+
+                    <div class="statistic-container">
+                        <div class="statistic" id="winCount">100</div>
+                        <div class="label">Win %</div>
+                    </div>
+
+                    <div class="statistic-container">
+                        <div class="statistic" id="playStreak">1</div>
+                        <div class="label">Current Streak</div>
+                    </div>
+
+                    <div class="statistic-container">
+                        <div class="statistic" id="maxStreak">1</div>
+                        <div class="label">Max Streak</div>
+                    </div>
+                </div>
+                <hr size="1" />
+            </div>
+            <div class="modal-row">
+                <p id="pWin" style="display: none;">You solved it in <span id="moveCount1">0</span> moves!</p>
+                <p id="pPlay">You have used <span id="moveCount2">0</span> moves!</p>
                 <p>Grid Size: <span id="gridSizeDisplay">4x4</span></p>
-                <p>Play Date: <span id="playDate">Date</span></p>
             </div>
-            <div class="countdown">
-                Next puzzle in: <span id="countdownTimer">00:00:00</span>
+            <hr size="1" />
+            <div class="model-row">
+                <div class="countdown">
+                    Next puzzle in: <span id="countdownTimer">00:00:00</span>
+                </div>
+                <div style="min-width: 50%; padding-left: 10px; margin: auto;" id="rowShare">
+                    <button class="share-button" style="width: 90%;" id="btnShare" onclick="shareResult()">
+                        Share Result
+                    </button>
+                </div>
             </div>
-            <button class="share-button" onclick="shareResult()">
-                Share Result
-            </button>
         </div>
     </div>
     <footer class="footer">
@@ -599,40 +685,20 @@
             overlay.classList.remove('active');
         }
 
-        function setCookie(name, value, days) {
-            const expires = new Date();
-            if (days > 0) {
-                expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-            } else {
-                expires.setHours(23, 59, 59, 0);
-            }
-            document.cookie = name + '=' + value + ';expires=' + expires.toLocaleString() + ';path=/';
-        }
-
-        function getCookie(name, def = null) {
-            const nameEQ = name + "=";
-            const ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-            }
-            return def;
-        }
-
         function toggleDarkMode() {
             const darkModeEnabled = document.getElementById('darkModeToggle').checked;
             document.body.classList.toggle('dark-mode', darkModeEnabled);
-            setCookie('darkMode', darkModeEnabled, 100);
+            setValue('darkMode', darkModeEnabled);
             //console.log('Dark Mode:', darkModeEnabled);
         }
 
         function toggleThreeMode() {
             const threeModeEnabled = document.getElementById('threeModeToggle').checked;
-            setCookie('threeMode', threeModeEnabled, 100);
+            setValue('threeMode', threeModeEnabled);
             //console.log('three Mode:', threeModeEnabled);
 
             gridN = threeModeEnabled ? 3 : 4;
+            updateStats();
             initializePuzzle();
         }
 
@@ -641,10 +707,29 @@
             initializeFromCookies();
         }
 
+        function readGridParam() {
+
+            try {
+                const params = window.location.search.split('&');
+                params.forEach(element => {
+                    if (element.endsWith('q=3')) {
+                        return 3;
+                    } else if (element.endsWith('q=4')) {
+                        return 4;
+                    }
+                });
+            } catch (error) {
+                // do nothing 
+            }
+
+            return 0;
+        }
+
         function initializeFromCookies() {
+
             // Read cookie values
-            const darkMode = getCookie('darkMode') === 'true';
-            const threeMode = getCookie('threeMode') === 'true';
+            const darkMode = getValue('darkMode', 'false') === 'true';
+            const threeMode = getValue('threeMode', 'false') === 'true';
 
             // Set toggle switches
             const darkModeToggle = document.getElementById('darkModeToggle');
@@ -654,11 +739,21 @@
                 darkModeToggle.checked = darkMode;
             }
 
+            // check query parameter for short link 
+            const gridParam = readGridParam();
+            if (gridParam > 0) {
+
+                threeMode = gridParam == 3 ? true : false;
+            }
+
             if (threeModeToggle) {
                 threeModeToggle.checked = threeMode;
             }
 
+
             gridN = threeMode ? 3 : 4;
+
+            updateStats()
 
             // Apply dark mode if enabled
             if (darkMode) {
@@ -679,11 +774,33 @@
             */
         }
 
+        function updateStats(){
+            const lastPlayed = getValue('lastPlayed' + gridN, '');
+            playCount = getValue('playCount' + gridN, 0);
+            winCount = getValue('winCount' + gridN, 0);
+            streakCount = getValue('streakCount' + gridN, 0);
+            streakMax = getValue('streakMax' + gridN, 0);
+
+            document.getElementById('playCount').textContent = playCount;
+            document.getElementById('winCount').textContent = `${(winCount/playCount)}%`;
+            document.getElementById('playStreak').textContent = streakCount;
+            document.getElementById('maxStreak').textContent = streakMax;
+
+            if (lastPlayed != today) {
+                playCount++;
+                setValue('lastPlayed' + gridN, today);
+                setValue('playCount' + gridN, playCount);
+                setValue('userGrid' + gridN, '');
+                setValue('movesCounter' + gridN, 0);
+            }
+
+        }
+
         function showWinModal() {
             const modal = document.getElementById('winModal');
-            document.getElementById('moveCount').textContent = movesCounter;
+            document.getElementById('moveCount1').textContent = movesCounter;
             document.getElementById('gridSizeDisplay').textContent = `${gridN}x${gridN}`;
-            document.getElementById('playDate').textContent = new Date().toLocaleDateString();
+            document.getElementById('moveCount2').textContent = movesCounter;
             modal.style.display = 'block';
             updateCountdown();
             // Start countdown update interval
@@ -711,12 +828,12 @@
 
         async function shareResult() {
             const dateString = new Date().toLocaleDateString();
-            const shareText = `🧩 Hindi Matrix Puzzle\n` +
-                `Grid: ${gridN}x${gridN}\n` +
-                `Moves: ${movesCounter}\n` +
-                `Date: ${dateString}\n` +
-                `Come play with me! 🎮\n` +
-                `bit.ly/49D6YmZ`
+            const shareText = `🧩 हिन्दी शब्द रचना\n` +
+                `ग्रिड: ${gridN}x${gridN}\n` +
+                `चाल: ${movesCounter}\n` +
+                `दिनाँक: ${dateString}\n\n` +
+                `आप भी खेल कर देखें! 🎮\n` +
+                `bit.ly/hindi${gridN}x${gridN}`
                 ;
 
             if (navigator.share) {
