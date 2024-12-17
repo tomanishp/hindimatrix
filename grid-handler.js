@@ -10,6 +10,7 @@ let originalSequence = [];
 let gridSequence = []
 let idxSequence = [];
 let movesCounter = 0;
+let swapMove = false;
 
 function setValue(key, value) {
     window.localStorage.setItem(key, value);
@@ -66,6 +67,10 @@ function initializePuzzle() {
         shuffleArray();
     }
 
+    createGrid();
+}
+
+function createGrid() {
     //Create grid
     const grid = document.getElementById('grid');
     document.getElementById('gridSize').innerText = gridN + 'x' + gridN;
@@ -115,7 +120,9 @@ function handleItemClick(e) {
         swapItems(selectedItem, e.target);
         selectedItem.classList.remove('selected');
         selectedItem = null;
+        swapMove = true;
         checkRows();
+        swapMove = false;
     }
 }
 
@@ -182,7 +189,7 @@ function checkRows() {
         document.getElementById('pWin').style.display = "block";
         document.getElementById('pPlay').style.display = "none";
 
-        showWinModal();
+        if (swapMove) showWinModal();
         //console.log('You won!');
     } else {
         document.getElementById('pWin').style.display = "none";
@@ -204,3 +211,18 @@ $('#resetBtn').click(function () {
     createGrid();
 });
 
+function resetGrid() {
+    const oldGrid = document.getElementById('grid');
+    const newGrid = document.createElement('div');
+    newGrid.id = 'grid';
+    newGrid.classList.add('grid-container');
+    oldGrid.parentNode.replaceChild(newGrid, oldGrid);
+    grid = newGrid;
+
+    selectedItem = null;
+
+    userGrid = '';
+    movesCounter = 0;
+    shuffleArray();
+    initializePuzzle();
+}
