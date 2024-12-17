@@ -433,6 +433,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: bold;
             margin-top: 15px;
             transition: background-color 0.3s;
         }
@@ -608,10 +609,10 @@
     <div id="winModal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-modal" onclick="closeWinModal()">×</span>
-            <div class="modal-header">Statistics</div>
-            <div class="model-row" style="display: none;">
+            <div class="modal-header">Statistics <span id="gridSizeDisplay">4x4</span></div>
+            <div class="model-row" style="display: block;">
                 <div id="statistics">
-        
+
                     <div class="statistic-container">
                         <div class="statistic" id="playCount">1</div>
                         <div class="label">Played</div>
@@ -637,7 +638,6 @@
             <div class="modal-row">
                 <p id="pWin" style="display: none;">आपने <span id="moveCount1">0</span> चाल में सुलझा लिया!</p>
                 <p id="pPlay">अब तक <span id="moveCount2">0</span> चालें हो गई हैं!</p>
-                <p>ग्रिड: <span id="gridSizeDisplay">4x4</span></p>
             </div>
             <hr size="1" />
             <div class="model-row">
@@ -730,6 +730,11 @@
 
         function initializeFromCookies() {
 
+            if (!(getValue('resetKey', '') == resetKey)) {
+                resetAllData();
+                setValue('resetKey', resetKey);
+            }
+
             // Read cookie values
             let darkMode = getValue('darkMode', 'false') === 'true';
             let threeMode = getValue('threeMode', 'false') === 'true';
@@ -777,7 +782,7 @@
             */
         }
 
-        function updateStats(){
+        function updateStats() {
             const lastPlayed = getValue('lastPlayed' + gridN, '');
             playCount = getValue('playCount' + gridN, 0);
             winCount = getValue('winCount' + gridN, 0);
@@ -785,7 +790,12 @@
             streakMax = getValue('streakMax' + gridN, 0);
 
             document.getElementById('playCount').textContent = playCount;
-            document.getElementById('winCount').textContent = `${(winCount/playCount)}%`;
+            if (winCount == 0) {
+                document.getElementById('winCount').textContent = '0%';
+            }
+            else {
+                document.getElementById('winCount').textContent = `${(winCount * 100 / playCount)}%`;
+            }
             document.getElementById('playStreak').textContent = streakCount;
             document.getElementById('maxStreak').textContent = streakMax;
 
@@ -831,8 +841,7 @@
 
         async function shareResult() {
             const dateString = new Date().toLocaleDateString();
-            const shareText = `🧩 हिन्दी शब्द रचना\n` +
-                `ग्रिड: ${gridN}x${gridN}\n` +
+            const shareText = `🧩 हिन्दी शब्द रचना ${gridN}x${gridN}\n` +
                 `चाल: ${movesCounter}\n` +
                 `दिनाँक: ${dateString}\n\n` +
                 `आप भी खेल कर देखें! 🎮\n` +

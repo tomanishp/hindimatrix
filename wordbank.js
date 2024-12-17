@@ -219,14 +219,16 @@ let wordBank44La = [
 
 ];
 
-
-function getRandomWords() {
-
-    const d1 = new Date('2024-12-16');
+function getIndex(strDate){
+    const d1 = new Date(strDate);
     const d2 = new Date().setHours(0, 0, 0);
 
-    let idx = Math.abs(Math.round((d2 - d1) / 864e5)) * 4;
+    let days = Math.abs(Math.round((d2 - d1) / 864e5)) ;
+    return days;
+}
+function getRandomWords() {
 
+    let idx = getIndex('2024-12-16') * 4;
     const selected = new Set();
 
     let items = gridN > 3 ? [...wordBank44] : [...wordBank33];

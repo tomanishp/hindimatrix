@@ -1,3 +1,4 @@
+const resetKey = "abcd";
 let today = new Date().toISOString().slice(0, 10);
 let playCount = 0;
 let winCount = 0
@@ -150,9 +151,19 @@ function swapItems(item1, item2) {
 
 }
 
-function clearAllCookies() {
+function resetAllData() {
+    window.localStorage.clear();
+}
+
+function resetLocalStorage() {
     setValue('userGrid' + gridN, '');
     setValue('movesCounter' + gridN, 0);
+    setValue('lastPlayed' + gridN, '');
+    setValue('lastWin' + gridN, '');
+    setValue('playCount' + gridN, 0);
+    setValue('winCount' + gridN, 0);
+    setValue('playStreak' + gridN, 0);
+    setValue('maxStreak' + gridN, 0);
 }
 
 function storeGridData() {
@@ -189,7 +200,28 @@ function checkRows() {
         document.getElementById('pWin').style.display = "block";
         document.getElementById('pPlay').style.display = "none";
 
-        if (swapMove) showWinModal();
+        if (swapMove) {
+            winCount++;
+            const lastWin = getValue('lastWin' + gridN, today);
+            dayDiff = getIndex(lastWin);
+            if (dayDiff <= 1) {
+                streakCount++;
+            } else if (dayDiff > 1) {
+                streakCount = 1;
+            }
+
+            if (streakCount > streakMax) {
+                streakMax++;
+            }
+
+            setValue('streakCount' + gridN, streakCount);
+            setValue('streakMax' + gridN, streakMax);
+            setValue('lastWin' + gridN, today);
+            setValue('winCount' + gridN, winCount);
+
+            updateStats();
+            showWinModal();
+        }
         //console.log('You won!');
     } else {
         document.getElementById('pWin').style.display = "none";
