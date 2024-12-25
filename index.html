@@ -62,6 +62,15 @@
             border: 1px solid var(--border-color);
         }
 
+        .sub-heading {
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .small-text {
+            font-size: smaller;
+        }
+
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -136,7 +145,7 @@
             z-index: 1000;
             padding: 1rem;
             color: var(--text-color);
-            overflow:auto;
+            overflow: auto;
         }
 
         .left-sidebar {
@@ -537,13 +546,28 @@
             <h3>Menu</h3>
             <button class="close-button" onclick="toggleMenu('left')">&times;</button>
         </div>
-        <ul class="menu-items">
-            <li><a href="https://tomanishp.github.io/matrix" target="_blank">4x4 Grid Puzzle</a></li>
-            <li><a href="https://tomanishp.github.io/hindimatra" target="_blank">Hindi Matra Checking Tool</a></li>
-            <li><a href="https://kavishavi.github.io/hinglishwordle/" target="_blank">Hindi Wordle - By Rahul
-                    Upadhyaya</a></li>
-            <li>Contact</li>
-        </ul>
+        <div>
+            <span class="sub-heading">Related Apps:</span><br>
+            <div style="padding-left: 20px;">
+                <ul class="small-text">
+                    <li><a href="https://kavishavi.github.io/hinglishwordle/" target="_blank">Hindi Wordle - By Rahul
+                            Upadhyaya</a></li>
+                    <li><a href="https://tomanishp.github.io/matrix" target="_blank">Classic 4x4 Grid Puzzle</a></li>
+                    <li><a href="https://tomanishp.github.io/hindimatra" target="_blank">Hindi Matra Checking Tool</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <hr />
+            <span class="sub-heading">Acknowledgement:</span><br>
+            <div style="padding-left: 20px;">
+                <ul class="small-text">
+                    <li><span>Rahul Upadhyaya, Seattle</span></li>
+                </ul>
+
+            </div>
+        </div>
     </div>
 
     <div class="sidebar help-sidebar">
@@ -553,6 +577,15 @@
         </div>
         <div class="help-content">
             <div>
+                <div id="enH">
+                    <p>
+                        हिन्दी के&nbsp;<span id="gridHindi">चार</span>&nbsp;शब्द दिये गयें हैं जिनके अक्षरों के क्रम बदल
+                        दिये गए हैं। अक्षरों को सही क्रम में लाने के लिए पहले अक्षर के डब्बे को टच करें फिर दूसरे अक्षर
+                        के डब्बे को टच करें। जब
+                        कोई शब्द पूरा हो जाएगा तो उसका रंग हरा हो जाएगा और फिर उसके अक्षर स्थिर हो जाएंगे।
+                    </p>
+                </div>
+                <div>&nbsp;</div>
                 <div id="enD">
                     <p>
                         Find the&nbsp;<span id="gridEng">four</span>&nbsp;Hindi words hidden in this puzzle by swaping
@@ -561,15 +594,6 @@
                         mark it for swapping then click another box to swap letters between them. When a correct word is
                         arranged in any row then boxes will be marked as green and locked. Continue to find rest of the
                         words.
-                    </p>
-                </div>
-                <div>&nbsp;</div>
-                <div id="enH">
-                    <p>
-                        हिन्दी के&nbsp;<span id="gridHindi">चार</span>&nbsp;शब्द दिये गयें हैं जिनके अक्षरों के क्रम बदल
-                        दिये गए हैं। अक्षरों का क्रम बदलने
-                        के लिए पहले अक्षर के डब्बे को क्लिक करें फिर दूसरे अक्षर के डब्बे को क्लिक करें। जब
-                        कोई शब्द पूरा हो जाएगा तो उसका रंग हरा हो जाएगा और फिर उसके अक्षर स्थिर हो जाएंगे।
                     </p>
                 </div>
             </div>
