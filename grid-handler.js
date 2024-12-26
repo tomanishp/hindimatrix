@@ -1,5 +1,5 @@
 const resetKey = "abcd";
-let today = new Date().toISOString().slice(0, 10);
+let today = getToday();
 let playCount = 0;
 let winCount = 0
 let sreakCount = 0;
@@ -15,6 +15,15 @@ let swapMove = false;
 
 function setValue(key, value) {
     window.localStorage.setItem(key, value);
+}
+
+function getToday() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
 }
 
 
