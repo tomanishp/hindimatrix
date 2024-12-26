@@ -47,9 +47,7 @@
 
 <body>
     <div class="button-container">
-        <button onclick="displayCookies()">Load Cookies</button>
-        <button onclick="clearAllCookies()">Clear Cookies</button>
-        <button onclick="setDummyCookies()">Dummy Cookies</button>
+        <button onclick="lastPlayYesterday()">Set Yesterday</button>
     </div>
     <div id="cookieDisplay"></div>
 
@@ -119,6 +117,33 @@
             setCookie('gridArray3', '3$$1$8$2$4$0$5$7$6')
             setCookie('movesCounter3', '0')
         }
+
+        function setValue(key, value) {
+            window.localStorage.setItem(key, value);
+        }
+        
+        
+        function getValue(key, defVal = null) {
+            let val = window.localStorage.getItem(key);
+        
+            if (val == null && defVal != null) {
+                val = defVal;
+            }
+            return val;
+        }
+
+        function lastPlayYesterday(){
+
+            let dtValue = new Date()
+                
+            dtValue.setDate(dtValue.getDate() - 1);
+            let today = new Date().toISOString().slice(0, 10);
+            let yesterday = dtValue.toISOString().slice(0, 10);
+            
+            setValue('lastPlayed3',yesterday);
+            setValue('lastPlayed4',yesterday);
+        }
+        
     </script>
 </body>
 
