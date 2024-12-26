@@ -111,7 +111,12 @@ function shuffleArray() {
     idxSequence = [...Array(gridN * gridN).keys()];
 
     for (let i = gridSequence.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        let j = i;
+
+        while (j == i) {
+          j = Math.floor(Math.random() * (i + 1));
+        }
+        
         [gridSequence[i], gridSequence[j]] = [gridSequence[j], gridSequence[i]];
         [idxSequence[i], idxSequence[j]] = [idxSequence[j], idxSequence[i]];
     }
