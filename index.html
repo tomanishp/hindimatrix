@@ -815,7 +815,7 @@
                 document.getElementById('winCount').textContent = '0%';
             }
             else {
-                document.getElementById('winCount').textContent = `${(winCount * 100 / playCount)}%`;
+                document.getElementById('winCount').textContent = `${(Math.round(winCount * 100 / playCount))}%`;
             }
             document.getElementById('playStreak').textContent = streakCount;
             document.getElementById('maxStreak').textContent = streakMax;
