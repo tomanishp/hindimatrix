@@ -771,7 +771,6 @@
             // check query parameter for short link 
             const gridParam = readGridParam();
             if (gridParam > 0) {
-
                 threeMode = gridParam == 3 ? true : false;
             }
 
@@ -809,6 +808,7 @@
             winCount = getValue('winCount' + gridN, 0);
             streakCount = getValue('streakCount' + gridN, 0);
             streakMax = getValue('streakMax' + gridN, 0);
+            orgGrid = getValue('orgGrid' + gridN, '');
 
             document.getElementById('playCount').textContent = playCount;
             if (winCount == 0) {
@@ -820,12 +820,12 @@
             document.getElementById('playStreak').textContent = streakCount;
             document.getElementById('maxStreak').textContent = streakMax;
 
-            if (lastPlayed != today) {
+            if (lastPlayed != today || today == '') {
                 playCount++;
                 setValue('lastPlayed' + gridN, today);
                 setValue('playCount' + gridN, playCount);
                 setValue('userGrid' + gridN, '');
-                //setValue('orgGrid' + gridN, '');
+                setValue('orgGrid' + gridN, '');
                 setValue('movesCounter' + gridN, 0);
             }
 

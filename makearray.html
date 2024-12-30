@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hindi Words Formation - हिन्दी शब्द रचना</title>
+</head>
+
+<body>
+    <script src="wordbank-maker.js"></script>
+
+    <table style="width: auto;">
+        <tr>
+            <td><span id="sIndex33"></span></td>
+            <td><span id="sIndex44"></span></td>
+        </tr>
+        <tr>
+            <td><span id="sOutput33"></span></td>
+            <td><span id="sOutput44"></span></td>
+        </tr>
+
+    </table>
+
+
+
+    <script>
+
+        window.onload = function () {
+
+            document.getElementById('sIndex33').innerText = createRandomIndex(3).join(',');
+            document.getElementById('sIndex44').innerText = createRandomIndex(4).join(',');
+
+            document.getElementById('sOutput33').innerText = randomizeWordList(3).join(',\r\n');
+            document.getElementById('sOutput44').innerText = randomizeWordList(4).join(',\r\n');
+        }
+
+        function createRandomIndex(iSize = 3) {
+
+            const arrayFinal = [];
+
+            let iLen = iSize * iSize;
+
+            for (idx = 0; idx < 36; idx++) {
+
+                const item = [];
+                item.push(0);
+                while (item.length < iLen) {
+                    const iVal = Math.floor(Math.random() * iLen);
+                    if (item.indexOf(iVal) == -1) {
+                        item.push(iVal);
+                    }
+                }
+                let sItem = '[' + item.join(',') + ']';
+                arrayFinal.push(sItem);
+            }
+            return arrayFinal;
+
+        }
+
+    </script>
+
+</body>
+
+</html>

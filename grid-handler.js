@@ -12,6 +12,8 @@ let gridSequence = []
 let idxSequence = [];
 let movesCounter = 0;
 let swapMove = false;
+let orgGrid = '';
+let userGrid = '';
 
 function setValue(key, value) {
     window.localStorage.setItem(key, value);
@@ -41,7 +43,7 @@ function initializePuzzle() {
     movesCounter = getValue('movesCounter' + gridN, 0);
     let userGrid = '';
     //let orgGrid = ''
-    let originalArray = '';
+    // let originalArray = '';
 
     document.getElementById('movesCounter').innerText = movesCounter;
     document.getElementById('gridHindi').innerText = gridN == 3 ? 'तीन' : 'चार';
@@ -50,7 +52,7 @@ function initializePuzzle() {
     try {
         //orgGrid = getValue('orgGrid' + gridN, '');
         userGrid = getValue('userGrid' + gridN, '');
-        originalArray = getValue('orgArray' + gridN, '');
+        // originalArray = getValue('orgArray' + gridN, '');
     } catch (exceptionVar) {
         //document.getElementById('movesCounter').innerText = 'Array load error';
     }
@@ -59,18 +61,16 @@ function initializePuzzle() {
     if (orgGrid.length> 5) {
         originalSequence = [...orgGrid.split('$')];
     } else {
-        originalSequence = getRandomWords(gridN);
+        originalSequence = getWordOfTheDay(gridN);
     } */
 
-    originalSequence = getRandomWords(gridN);
+    originalSequence = getWordOfTheDay(gridN);
+    let orgShuffle = getGridSequence(gridN);
 
     if (userGrid.length > 5) {
         try {
             gridSequence = [];
             idxSequence = [...userGrid.split('$')];
-            for (let i = 0; i < idxSequence.length; i++) {
-                gridSequence[i] = originalSequence[idxSequence[i]];
-            }
         } catch (exceptionVar) {
             //document.getElementById('movesCounter').innerText = 'Reload error';
         }
@@ -82,8 +82,11 @@ function initializePuzzle() {
             movesCounter: movesCounter
         }); */
     } else {
-        gridSequence = [...originalSequence];
-        shuffleArray();
+        idxSequence = [...orgShuffle];
+    }
+
+    for (let i = 0; i < idxSequence.length; i++) {
+        gridSequence.push(originalSequence[idxSequence[i]]);
     }
 
     createGrid();
