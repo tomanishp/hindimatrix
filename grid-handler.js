@@ -40,7 +40,7 @@ function initializePuzzle() {
 
     movesCounter = getValue('movesCounter' + gridN, 0);
     let userGrid = '';
-    let orgGrid = ''
+    //let orgGrid = ''
     let originalArray = '';
 
     document.getElementById('movesCounter').innerText = movesCounter;
@@ -48,18 +48,21 @@ function initializePuzzle() {
     document.getElementById('gridEng').innerText = gridN == 3 ? 'three' : 'four';
 
     try {
-        orgGrid = getValue('orgGrid' + gridN, '');
+        //orgGrid = getValue('orgGrid' + gridN, '');
         userGrid = getValue('userGrid' + gridN, '');
         originalArray = getValue('orgArray' + gridN, '');
     } catch (exceptionVar) {
         //document.getElementById('movesCounter').innerText = 'Array load error';
     }
 
+    /*
     if (orgGrid.length> 5) {
         originalSequence = [...orgGrid.split('$')];
     } else {
         originalSequence = getRandomWords(gridN);
-    }
+    } */
+
+    originalSequence = getRandomWords(gridN);
 
     if (userGrid.length > 5) {
         try {
@@ -187,7 +190,7 @@ function resetLocalStorage() {
 }
 
 function storeGridData() {
-    setValue('orgGrid' + gridN, originalSequence.join('$'));
+    //setValue('orgGrid' + gridN, originalSequence.join('$'));
     setValue('userGrid' + gridN, idxSequence.join('$'));
     setValue('movesCounter' + gridN, movesCounter);
 }
