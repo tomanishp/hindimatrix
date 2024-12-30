@@ -1,4 +1,4 @@
-let startDate = '2024-12-15';
+let startDate = '2024-12-30';
 function getIndex(strDate) {
     const d1 = new Date(strDate);
     const d2 = new Date().setHours(0, 0, 0);
