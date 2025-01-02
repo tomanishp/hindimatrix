@@ -67,9 +67,10 @@ function initializePuzzle() {
     originalSequence = getWordOfTheDay(gridN);
     let orgShuffle = getGridSequence(gridN);
 
+    gridSequence = [];
+
     if (userGrid.length > 5) {
         try {
-            gridSequence = [];
             idxSequence = [...userGrid.split('$')];
         } catch (exceptionVar) {
             //document.getElementById('movesCounter').innerText = 'Reload error';
