@@ -246,11 +246,14 @@ function checkRows() {
     if (matchCount > 0 && solveSequence.length > 0) {
         let winSteps = document.getElementById('winSteps');
         winSteps.innerHTML = '<ul>';
+        let tempCount = 0;
         for (let i = 0; i < solveSequence.length; i++) {
             const winStep = document.createElement('li');
+            const currCount = solveSequence[i] - tempCount;
             winStep.className = 'win-step';
-            winStep.textContent = `${wordCounter[i]} शब्द ${solveSequence[i]} चाल में`;
+            winStep.textContent = `${wordCounter[i]} शब्द ${currCount} चाल में`;
             winSteps.appendChild(winStep);
+            tempCount = solveSequence[i];
         }
         winSteps.innerHTML += '</ul>';
     }

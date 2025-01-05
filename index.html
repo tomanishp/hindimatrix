@@ -675,7 +675,7 @@
                     <p>आपने <span id="moveCount1">0</span> चाल में सुलझा लिया!</p>
                 </div>
                 <p id="pPlay">अब तक <span id="moveCount2">0</span> चालें हो गई हैं!</p>
-                <div id="winSteps"></div>
+                <div id="winSteps" style="padding-left: 20px;"></div>
         </div>
             <hr size="1" />
             <div class="model-row">
@@ -898,8 +898,11 @@
                 `कुल चालें: ${movesCounter}\n`;
 
             try {
+                let tempCount = 0;
                 for (let i = 0; i < solveSequence.length; i++) {
-                    shareText += `  * ${wordCounter[i]} शब्द ${solveSequence[i]} चाल में\n`;
+                    const currCount = solveSequence[i] - tempCount;
+                    shareText += `  * ${wordCounter[i]} शब्द ${currCount} चाल में\n`;
+                    tempCount = solveSequence[i];
                 }
             } catch (error) {
                 //do nothing                
