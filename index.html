@@ -892,7 +892,8 @@
         }
 
         async function shareResult() {
-            const dateString = new Date().toLocaleDateString();
+            //const dateString = new Date().toLocaleDateString();
+            const dateString = (new Date()).toString().substring(4,15)
             let shareText = `🧩 हिन्दी शब्द रचना ${gridN}x${gridN}\n\n` +
                 `दिनाँक: ${dateString}\n` +
                 `कुल चालें: ${movesCounter}\n`;
