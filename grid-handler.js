@@ -146,10 +146,10 @@ function handleItemClick(e) {
 
         selectedItem = e.target;
         
-        if(selectedItem.classList.contains('selected')) {
-            selectedItem.classList.remove('selected');
+        if(selectedItem.classList.contains('selected2')) {
+            selectedItem.classList.remove('selected2');
         }else {
-            selectedItem.classList.add('selected');
+            selectedItem.classList.add('selected2');
         }
 
     } else {
