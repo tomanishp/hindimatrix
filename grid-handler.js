@@ -11,11 +11,13 @@ let selectedItem = null;
 let originalSequence = [];
 let gridSequence = []
 let idxSequence = [];
+let solveSequence = [];
 let movesCounter = 0;
 let swapMove = false;
 let orgGrid = '';
 let userGrid = '';
-
+let solveGrid = '';
+let currRow = 0;
 function setValue(key, value) {
     window.localStorage.setItem(key, value);
 }
@@ -43,6 +45,7 @@ function initializePuzzle() {
 
     movesCounter = getValue('movesCounter' + gridN, 0);
     let userGrid = '';
+    let solveGrid = '';
     //let orgGrid = ''
     // let originalArray = '';
 
@@ -53,22 +56,19 @@ function initializePuzzle() {
     try {
         //orgGrid = getValue('orgGrid' + gridN, '');
         userGrid = getValue('userGrid' + gridN, '');
+        solveGrid = getValue('solveGrid' + gridN, '');
         // originalArray = getValue('orgArray' + gridN, '');
     } catch (exceptionVar) {
         //document.getElementById('movesCounter').innerText = 'Array load error';
     }
 
-    /*
-    if (orgGrid.length> 5) {
-        originalSequence = [...orgGrid.split('$')];
-    } else {
-        originalSequence = getWordOfTheDay(gridN);
-    } */
+    gridSequence = [];
+    solveSequence = [];
+
+    if (solveGrid) solveSequence = [...solveGrid.split('$')];
 
     originalSequence = getWordOfTheDay(gridN);
     let orgShuffle = getGridSequence(gridN);
-
-    gridSequence = [];
 
     if (userGrid.length > 5) {
         try {
@@ -145,10 +145,10 @@ function handleItemClick(e) {
     if (mindCheckMode) {
 
         selectedItem = e.target;
-        
-        if(selectedItem.classList.contains('selected2')) {
+
+        if (selectedItem.classList.contains('selected2')) {
             selectedItem.classList.remove('selected2');
-        }else {
+        } else {
             selectedItem.classList.add('selected2');
         }
 
@@ -162,9 +162,11 @@ function handleItemClick(e) {
             selectedItem.classList.remove('selected');
             selectedItem = null;
             swapMove = true;
+            currRow = Math.floor(Number(e.target.tag) / gridN);
             checkRows();
+            storeGridData();
             swapMove = false;
-        }else {
+        } else {
             selectedItem.classList.remove('selected');
             selectedItem = null;
         }
@@ -190,8 +192,6 @@ function swapItems(item1, item2) {
 
     movesCounter++;
     document.getElementById('movesCounter').innerText = movesCounter;
-    storeGridData();
-
 
 }
 
@@ -214,16 +214,17 @@ function storeGridData() {
     //setValue('orgGrid' + gridN, originalSequence.join('$'));
     setValue('userGrid' + gridN, idxSequence.join('$'));
     setValue('movesCounter' + gridN, movesCounter);
+    setValue('solveGrid' + gridN, solveSequence.join('$'));
 }
 
 function checkRows() {
     const rows = document.getElementsByClassName('grid-row');
     let matchCount = 0;
-
     gridCheck = gridN * (gridN - 1);
 
-    Array.from(rows).forEach(row => {
-        const items = Array.from(row.getElementsByClassName('grid-item'));
+    for (let idxRow = 0; idxRow < rows.length; idxRow++) {
+
+        const items = Array.from(rows[idxRow].getElementsByClassName('grid-item'));
         const values = items.map(item => item.textContent);
 
         for (let i = 0; i <= gridCheck; i += gridN) {
@@ -233,21 +234,38 @@ function checkRows() {
                     item.classList.add('correct', 'disabled');
                 });
 
+                if (swapMove && idxRow == currRow) {
+                    solveSequence.push(movesCounter);
+                }
                 matchCount++;
                 break;
             }
         }
-    });
+    };
 
     // Check if all rows match
     if (matchCount === gridN) {
 
-        document.getElementById('divMindCheck').style.display = "none";        
+        document.getElementById('divMindCheck').style.display = "none";
         document.getElementById('rowShare').style.display = "block";
         document.getElementById('pWin').style.display = "block";
         document.getElementById('pPlay').style.display = "none";
 
+        let winSteps =  document.getElementById('winSteps');
+        winSteps.innerHTML = '<ul>';
+        for (let i = 0; i < solveSequence.length; i++) {
+            const winStep = document.createElement('li');
+            winStep.className = 'win-step';
+            winStep.textContent = `${wordCounter[i]} शब्द ${solveSequence[i]} चाल में` ;
+            winSteps.appendChild(winStep);
+        }
+        winSteps.innerHTML += '</ul>';
         if (swapMove) {
+
+            if (solveSequence.length < gridN) {
+                solveSequence.push(movesCounter);
+            }
+
             winCount++;
             const lastWin = getValue('lastWin' + gridN, today);
             dayDiff = getIndex(lastWin);

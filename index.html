@@ -23,7 +23,7 @@
             --selected-item: #0f0f0f;
             --selected-item2: #f8b705;
             --selected-text: #5f5f5f;
-            --selected-text2:#0f0f0f;
+            --selected-text2: #0f0f0f;
             --correct-item-bg: #98FB98;
             --border-color: #dee2e6;
             --hover-color: #007bff;
@@ -671,7 +671,11 @@
                 <hr size="1" />
             </div>
             <div class="modal-row">
-                <p id="pWin" style="display: none;">आपने <span id="moveCount1">0</span> चाल में सुलझा लिया!</p>
+                <div id="pWin" style="display: none;">
+                    <p>आपने <span id="moveCount1">0</span> चाल में सुलझा लिया!</p>
+                    <div id="winSteps">
+                    </div>
+                </div>
                 <p id="pPlay">अब तक <span id="moveCount2">0</span> चालें हो गई हैं!</p>
             </div>
             <hr size="1" />
@@ -890,10 +894,15 @@
 
         async function shareResult() {
             const dateString = new Date().toLocaleDateString();
-            const shareText = `🧩 हिन्दी शब्द रचना ${gridN}x${gridN}\n` +
-                `चाल: ${movesCounter}\n` +
-                `दिनाँक: ${dateString}\n\n` +
-                `आप भी खेल कर देखें! 🎮\n` +
+            let shareText = `🧩 हिन्दी शब्द रचना ${gridN}x${gridN}\n\n` +
+                `दिनाँक: ${dateString}\n` +
+                `कुल चालें: ${movesCounter}\n`;
+
+            for (let i = 0; i < solveSequence.length; i++) {
+                shareText += `  * ${wordCounter[i]} शब्द ${solveSequence[i]} चाल में\n`;
+            }
+
+            shareText += `\nआप भी खेल कर देखें! 🎮\n` +
                 `bit.ly/hindi${gridN}x${gridN}`
                 ;
 
