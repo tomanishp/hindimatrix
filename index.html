@@ -898,8 +898,12 @@
                 `दिनाँक: ${dateString}\n` +
                 `कुल चालें: ${movesCounter}\n`;
 
-            for (let i = 0; i < solveSequence.length; i++) {
-                shareText += `  * ${wordCounter[i]} शब्द ${solveSequence[i]} चाल में\n`;
+            try {
+                for (let i = 0; i < solveSequence.length; i++) {
+                    shareText += `  * ${wordCounter[i]} शब्द ${solveSequence[i]} चाल में\n`;
+                }
+            } catch (error) {
+                //do nothing                
             }
 
             shareText += `\nआप भी खेल कर देखें! 🎮\n` +
