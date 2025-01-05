@@ -295,10 +295,10 @@
 
         .grid-row {
             border: 1px solid #dee2e6;
-            margin-bottom: 10px;
+            margin-bottom: 0px;
             padding: 1px;
             background-color: var(--bg-color);
-            min-height: 62px;
+            min-height: 44px;
             transition: background-color 0.3s;
             position: relative;
             display: flex;
@@ -621,8 +621,13 @@
         <div class="grid-container" id="grid"></div>
         <div class="text-center mt-3 button-container" style="vertical-align: middle;">
             <span style="margin: auto;">Steps:&nbsp;<span id="movesCounter">0</span></span>
-            <button style="display: none;" class="btn btn-secondary custom-button" id="resetBtn">Reset | नए
-                शब्द</button>
+            <div id="divMindCheck" class="toggle-container">
+                <span>विकल्प जाँच&nbsp;</span>
+                <label class="switch">
+                    <input type="checkbox" id="mindCheckToggle" onchange="toggleMindCheck()">
+                    <span class="slider"></span>
+                </label>
+            </div>
         </div>
     </div>
 
@@ -723,6 +728,18 @@
             gridN = threeModeEnabled ? 3 : 4;
             updateStats();
             initializePuzzle();
+        }
+
+        function toggleMindCheck() {
+            mindCheckMode = document.getElementById('mindCheckToggle').checked;
+
+
+            Array.from(document.getElementsByClassName("selected")).forEach(function (item) {
+                item.classList.remove('selected');
+            });
+
+            selectedItem = null;
+
         }
 
         // Initialize toggles from cookies

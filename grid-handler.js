@@ -1,5 +1,6 @@
 const resetKey = "abcd";
 let today = getToday();
+let mindCheckMode = false;
 let playCount = 0;
 let winCount = 0
 let sreakCount = 0;
@@ -130,9 +131,9 @@ function shuffleArray() {
         let j = i;
 
         while (j == i) {
-          j = Math.floor(Math.random() * (i + 1));
+            j = Math.floor(Math.random() * (i + 1));
         }
-        
+
         [gridSequence[i], gridSequence[j]] = [gridSequence[j], gridSequence[i]];
         [idxSequence[i], idxSequence[j]] = [idxSequence[j], idxSequence[i]];
     }
@@ -141,16 +142,32 @@ function shuffleArray() {
 function handleItemClick(e) {
     if (e.target.classList.contains('disabled')) return;
 
-    if (!selectedItem) {
+    if (mindCheckMode) {
+
         selectedItem = e.target;
-        selectedItem.classList.add('selected');
+        
+        if(selectedItem.classList.contains('selected')) {
+            selectedItem.classList.remove('selected');
+        }else {
+            selectedItem.classList.add('selected');
+        }
+
     } else {
-        swapItems(selectedItem, e.target);
-        selectedItem.classList.remove('selected');
-        selectedItem = null;
-        swapMove = true;
-        checkRows();
-        swapMove = false;
+
+        if (!selectedItem) {
+            selectedItem = e.target;
+            selectedItem.classList.add('selected');
+        } else if (selectedItem.tag != e.target.tag) {
+            swapItems(selectedItem, e.target);
+            selectedItem.classList.remove('selected');
+            selectedItem = null;
+            swapMove = true;
+            checkRows();
+            swapMove = false;
+        }else {
+            selectedItem.classList.remove('selected');
+            selectedItem = null;
+        }
     }
 }
 
@@ -224,6 +241,8 @@ function checkRows() {
 
     // Check if all rows match
     if (matchCount === gridN) {
+
+        document.getElementById('divMindCheck').style.display = "none";        
         document.getElementById('rowShare').style.display = "block";
         document.getElementById('pWin').style.display = "block";
         document.getElementById('pPlay').style.display = "none";
