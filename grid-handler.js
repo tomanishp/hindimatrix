@@ -243,6 +243,18 @@ function checkRows() {
         }
     };
 
+    if (matchCount > 0 && solveSequence.length > 0) {
+        let winSteps = document.getElementById('winSteps');
+        winSteps.innerHTML = '<ul>';
+        for (let i = 0; i < solveSequence.length; i++) {
+            const winStep = document.createElement('li');
+            winStep.className = 'win-step';
+            winStep.textContent = `${wordCounter[i]} शब्द ${solveSequence[i]} चाल में`;
+            winSteps.appendChild(winStep);
+        }
+        winSteps.innerHTML += '</ul>';
+    }
+
     // Check if all rows match
     if (matchCount === gridN) {
 
@@ -251,15 +263,6 @@ function checkRows() {
         document.getElementById('pWin').style.display = "block";
         document.getElementById('pPlay').style.display = "none";
 
-        let winSteps =  document.getElementById('winSteps');
-        winSteps.innerHTML = '<ul>';
-        for (let i = 0; i < solveSequence.length; i++) {
-            const winStep = document.createElement('li');
-            winStep.className = 'win-step';
-            winStep.textContent = `${wordCounter[i]} शब्द ${solveSequence[i]} चाल में` ;
-            winSteps.appendChild(winStep);
-        }
-        winSteps.innerHTML += '</ul>';
         if (swapMove) {
 
             if (solveSequence.length < gridN) {
