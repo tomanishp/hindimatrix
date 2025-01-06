@@ -298,6 +298,7 @@ function checkRows() {
         document.getElementById('pWin').style.display = "none";
         document.getElementById('pPlay').style.display = "block";
         document.getElementById('rowShare').style.display = "none";
+        document.getElementById('divMindCheck').style.display = "block";
     }
 }
 
