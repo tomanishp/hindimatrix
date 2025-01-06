@@ -1,34 +1,7 @@
 let startDate = '2024-12-30';
 const wordCounter = ['पहला', 'दूसरा', 'तीसरा', 'चौथा'];
 
-function getIndex(strDate) {
-    const d1 = new Date(strDate);
-    const d2 = new Date().setHours(0, 0, 0);
-
-    let days = Math.abs(Math.round((d2 - d1) / 864e5));
-    return days;
-}
-
-
-function getWordOfTheDay(iSize = 3){
-
-    let idx = getIndex(startDate); 
-
-    const items = iSize > 3 ? [...wordList44] : [...wordList33];
-
-    return items[idx];
-}
-
-function getGridSequence(iSize = 3){
-
-    let idx = today.replaceAll('-','').split('').reduce((a, c) => {return Number(a) + Number(c)},0);
-    const iWD = (new Date()).getDay();
-    idx = idx - 9 + iWD;
-
-    const items = iSize > 3 ? [...wordIndex44] : [...wordIndex33];
-
-    return items[idx];
-}
+function _0x22f1(){const _0x40d5fc=['20ShPGbG','740ZlRIdn','round','replaceAll','abs','13909608GiYKhT','4756578bANuAC','setHours','5879048GituiH','16188lmvixa','44470860wNnBTK','reduce','356MNUlAJ','1302035bxExZu','7RLBZxm','split'];_0x22f1=function(){return _0x40d5fc;};return _0x22f1();}(function(_0x5035ec,_0x342b8f){const _0x109ee7=_0x600d,_0x2d605c=_0x5035ec();while(!![]){try{const _0x32dcfd=parseInt(_0x109ee7(0xef))/0x1+parseInt(_0x109ee7(0xee))/0x2*(parseInt(_0x109ee7(0xeb))/0x3)+parseInt(_0x109ee7(0xf3))/0x4*(-parseInt(_0x109ee7(0xf2))/0x5)+-parseInt(_0x109ee7(0xe8))/0x6*(-parseInt(_0x109ee7(0xf0))/0x7)+parseInt(_0x109ee7(0xea))/0x8+parseInt(_0x109ee7(0xf7))/0x9+-parseInt(_0x109ee7(0xec))/0xa;if(_0x32dcfd===_0x342b8f)break;else _0x2d605c['push'](_0x2d605c['shift']());}catch(_0x56200a){_0x2d605c['push'](_0x2d605c['shift']());}}}(_0x22f1,0xd8c2d));function getIndex(_0x42ac82){const _0x19291f=_0x600d,_0x7989bf=new Date(_0x42ac82),_0x30b2c8=new Date()[_0x19291f(0xe9)](0x0,0x0,0x0);let _0x52c231=Math[_0x19291f(0xf6)](Math[_0x19291f(0xf4)]((_0x30b2c8-_0x7989bf)/0x5265c00));return _0x52c231;}function getWordOfTheDay(_0x581e24=0x3){let _0x4fa9b0=getIndex(startDate);const _0x2c71e2=_0x581e24>0x3?[...wordList44]:[...wordList33];return _0x2c71e2[_0x4fa9b0];}function _0x600d(_0x5d4498,_0x4c0627){const _0x22f1a4=_0x22f1();return _0x600d=function(_0x600d8d,_0x14f495){_0x600d8d=_0x600d8d-0xe8;let _0x1e4e43=_0x22f1a4[_0x600d8d];return _0x1e4e43;},_0x600d(_0x5d4498,_0x4c0627);}function getGridSequence(_0x1fbddd=0x3){const _0x3f9df9=_0x600d;let _0x373b1e=today[_0x3f9df9(0xf5)]('-','')[_0x3f9df9(0xf1)]('')[_0x3f9df9(0xed)]((_0x206f4c,_0x1eb02d)=>{return Number(_0x206f4c)+Number(_0x1eb02d);},0x0);const _0x336c2b=new Date()['getDay']();_0x373b1e=_0x373b1e-0x9+_0x336c2b;const _0x3b6e0d=_0x1fbddd>0x3?[...wordIndex44]:[...wordIndex33];return _0x3b6e0d[_0x373b1e];}
 
 wordIndex33 = [
     [0, 6, 7, 1, 8, 3, 2, 4, 5], [0, 1, 8, 7, 4, 5, 2, 6, 3], [0, 5, 1, 4, 6, 7, 3, 2, 8], [0, 7, 6, 5, 2, 4, 1, 3, 8], [0, 4, 3, 2, 6, 5, 8, 1, 7], [0, 6, 8, 5, 1, 4, 7, 2, 3],

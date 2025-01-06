@@ -240,6 +240,18 @@
             border-radius: 5px;
         }
 
+        .toggle-container2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin: 0 auto;
+            padding: 0.5rem;
+            border-radius: 5px;
+            vertical-align: middle;
+
+            border: 1px;
+        }
+
         .switch {
             position: relative;
             display: inline-block;
@@ -358,11 +370,10 @@
 
         .button-container {
             display: flex;
+            vertical-align: middle;
             justify-content: center;
-            gap: 20px;
-            max-width: 600px;
-            margin: 20px auto;
             height: 50px;
+            width: auto;            
         }
 
         .custom-button {
@@ -630,7 +641,7 @@
         <div class="grid-container" id="grid"></div>
         <div class="text-center mt-3 button-container" style="vertical-align: middle;">
             <span style="margin: auto;">Steps:&nbsp;<span id="movesCounter">0</span></span>
-            <div id="divMindCheck" class="toggle-container">
+            <div id="divMindCheck" class="toggle-container2">
                 <span>विकल्प जाँच&nbsp;</span>
                 <label class="switch">
                     <input type="checkbox" id="mindCheckToggle" onchange="toggleMindCheck()">
@@ -696,255 +707,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="wordbank.js"></script>
     <script src="grid-handler.js"></script>
-    <script>
-
-        function toggleMenu(side) {
-            const sidebar = document.querySelector(`.${side}-sidebar`);
-            const overlay = document.querySelector('.overlay');
-
-            // Close other menus if open
-            const sidebars = document.querySelectorAll('.sidebar');
-            sidebars.forEach(sb => {
-                if (sb !== sidebar) {
-                    sb.classList.remove('active');
-                }
-            });
-
-            // Toggle current menu
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-
-        function closeAllMenus() {
-            const sidebars = document.querySelectorAll('.sidebar');
-            const overlay = document.querySelector('.overlay');
-
-            sidebars.forEach(sidebar => {
-                sidebar.classList.remove('active');
-            });
-            overlay.classList.remove('active');
-        }
-
-        function toggleDarkMode() {
-            const darkModeEnabled = document.getElementById('darkModeToggle').checked;
-            document.body.classList.toggle('dark-mode', darkModeEnabled);
-            setValue('darkMode', darkModeEnabled);
-            //console.log('Dark Mode:', darkModeEnabled);
-        }
-
-        function toggleThreeMode() {
-            const threeModeEnabled = document.getElementById('threeModeToggle').checked;
-            setValue('threeMode', threeModeEnabled);
-            //console.log('three Mode:', threeModeEnabled);
-
-            gridN = threeModeEnabled ? 3 : 4;
-            updateStats();
-            initializePuzzle();
-        }
-
-        function toggleMindCheck() {
-            mindCheckMode = document.getElementById('mindCheckToggle').checked;
-
-
-            Array.from(document.getElementsByClassName("grid-item")).forEach(function (item) {
-                item.classList.remove('selected');
-                item.classList.remove('selected2');
-            });
-
-            selectedItem = null;
-
-        }
-
-        // Initialize toggles from cookies
-        window.onload = function () {
-            initializeFromCookies();
-        }
-
-        function readGridParam() {
-
-            let paramVal = 0;
-            try {
-                const params = window.location.search.split('&');
-                params.forEach(element => {
-                    if (element.endsWith('q=3')) {
-                        paramVal = 3;
-                    } else if (element.endsWith('q=4')) {
-                        paramVal = 4;
-                    }
-                });
-            } catch (error) {
-                // do nothing 
-            }
-
-            return paramVal;
-        }
-
-        function initializeFromCookies() {
-
-            if (!(getValue('resetKey', '') == resetKey)) {
-                resetAllData();
-                setValue('resetKey', resetKey);
-            }
-
-            // Read cookie values
-            let darkMode = getValue('darkMode', 'false') === 'true';
-            let threeMode = getValue('threeMode', 'false') === 'true';
-
-            // Set toggle switches
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const threeModeToggle = document.getElementById('threeModeToggle');
-
-            if (darkModeToggle) {
-                darkModeToggle.checked = darkMode;
-            }
-
-            // check query parameter for short link 
-            const gridParam = readGridParam();
-            if (gridParam > 0) {
-                threeMode = gridParam == 3 ? true : false;
-            }
-
-            if (threeModeToggle) {
-                threeModeToggle.checked = threeMode;
-            }
-
-
-            gridN = threeMode ? 3 : 4;
-
-            updateStats()
-
-            // Apply dark mode if enabled
-            if (darkMode) {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
-
-            initializePuzzle();
-
-            /*
-            // Log the initial states (for debugging)
-            console.log('Initial Settings:', {
-                darkMode: darkMode,
-                threeMode: threeMode
-            });
-
-            */
-        }
-
-        function updateStats() {
-            const lastPlayed = getValue('lastPlayed' + gridN, '');
-            playCount = getValue('playCount' + gridN, 0);
-            winCount = getValue('winCount' + gridN, 0);
-            streakCount = getValue('streakCount' + gridN, 0);
-            streakMax = getValue('streakMax' + gridN, 0);
-            orgGrid = getValue('orgGrid' + gridN, '');
-
-            document.getElementById('playCount').textContent = playCount;
-            if (winCount == 0) {
-                document.getElementById('winCount').textContent = '0%';
-            }
-            else {
-                document.getElementById('winCount').textContent = `${(Math.round(winCount * 100 / playCount))}%`;
-            }
-            document.getElementById('playStreak').textContent = streakCount;
-            document.getElementById('maxStreak').textContent = streakMax;
-
-            if (lastPlayed != today || today == '') {
-                playCount++;
-                setValue('lastPlayed' + gridN, today);
-                setValue('playCount' + gridN, playCount);
-                setValue('userGrid' + gridN, '');
-                setValue('orgGrid' + gridN, '');
-                setValue('movesCounter' + gridN, 0);
-            }
-
-        }
-
-        function showWinModal() {
-            const modal = document.getElementById('winModal');
-            document.getElementById('moveCount1').textContent = movesCounter;
-            document.getElementById('gridSizeDisplay').textContent = `${gridN}x${gridN}`;
-            document.getElementById('moveCount2').textContent = movesCounter;
-            modal.style.display = 'block';
-            updateCountdown();
-            // Start countdown update interval
-            setInterval(updateCountdown, 1000);
-        }
-
-        function closeWinModal() {
-            document.getElementById('winModal').style.display = 'none';
-        }
-
-        function updateCountdown() {
-            const now = new Date();
-            const midnight = new Date();
-            midnight.setHours(24, 0, 0, 0);
-
-            const diff = midnight - now;
-
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            document.getElementById('countdownTimer').textContent = timeString;
-        }
-
-        async function shareResult() {
-            //const dateString = new Date().toLocaleDateString();
-            const dateString = (new Date()).toString().substring(4,15)
-            let shareText = `🧩 हिन्दी शब्द रचना ${gridN}x${gridN}\n\n` +
-                `दिनाँक: ${dateString}\n` +
-                `कुल चालें: ${movesCounter}\n`;
-
-            try {
-                let tempCount = 0;
-                for (let i = 0; i < solveSequence.length; i++) {
-                    const currCount = solveSequence[i] - tempCount;
-                    shareText += `  * ${wordCounter[i]} शब्द ${currCount} चाल में\n`;
-                    tempCount = solveSequence[i];
-                }
-            } catch (error) {
-                //do nothing                
-            }
-
-            shareText += `\nआप भी खेल कर देखें! 🎮\n` +
-                `bit.ly/hindi${gridN}x${gridN}`
-                ;
-
-            if (navigator.share) {
-                try {
-                    await navigator.share({
-                        title: 'Hindi Matrix Puzzle',
-                        text: shareText
-                    });
-                } catch (err) {
-                    fallbackShare(shareText);
-                }
-            } else {
-                fallbackShare(shareText);
-            }
-        }
-
-        function fallbackShare(text) {
-            // Create temporary textarea
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-
-            // Select and copy text
-            textarea.select();
-            document.execCommand('copy');
-
-            // Remove temporary textarea
-            document.body.removeChild(textarea);
-
-            // Show feedback
-            alert('Result copied to clipboard!');
-        }
-
-    </script>
+    <script src="index.js"></script>
 </body>
 
 </html>
