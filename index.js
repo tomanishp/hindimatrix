@@ -1,27 +1,19 @@
-const _0xf2b303 = _0x2c2c;
-(function(_0x190417, _0x55b550) {
-    const _0x557b33 = _0x2c2c
-      , _0x37af88 = _0x190417();
+const _0xdd911d = _0x4762;
+(function(_0x4214c7, _0x13dd74) {
+    const _0xfb269a = _0x4762
+      , _0x49e321 = _0x4214c7();
     while (!![]) {
         try {
-            const _0x1095ea = -parseInt(_0x557b33(0x1a8)) / 0x1 * (-parseInt(_0x557b33(0x1c9)) / 0x2) + parseInt(_0x557b33(0x190)) / 0x3 * (parseInt(_0x557b33(0x19c)) / 0x4) + -parseInt(_0x557b33(0x1b0)) / 0x5 * (-parseInt(_0x557b33(0x1bd)) / 0x6) + -parseInt(_0x557b33(0x19a)) / 0x7 * (-parseInt(_0x557b33(0x1b1)) / 0x8) + -parseInt(_0x557b33(0x1aa)) / 0x9 * (-parseInt(_0x557b33(0x188)) / 0xa) + -parseInt(_0x557b33(0x187)) / 0xb * (parseInt(_0x557b33(0x18e)) / 0xc) + parseInt(_0x557b33(0x1b4)) / 0xd * (-parseInt(_0x557b33(0x1ab)) / 0xe);
-            if (_0x1095ea === _0x55b550)
+            const _0x5cc0aa = parseInt(_0xfb269a(0x112)) / 0x1 * (parseInt(_0xfb269a(0x10d)) / 0x2) + -parseInt(_0xfb269a(0xc8)) / 0x3 + -parseInt(_0xfb269a(0xc7)) / 0x4 * (-parseInt(_0xfb269a(0x109)) / 0x5) + -parseInt(_0xfb269a(0xd4)) / 0x6 * (-parseInt(_0xfb269a(0xdb)) / 0x7) + -parseInt(_0xfb269a(0x101)) / 0x8 * (-parseInt(_0xfb269a(0x106)) / 0x9) + parseInt(_0xfb269a(0x10f)) / 0xa + -parseInt(_0xfb269a(0xf4)) / 0xb * (parseInt(_0xfb269a(0xc3)) / 0xc);
+            if (_0x5cc0aa === _0x13dd74)
                 break;
             else
-                _0x37af88['push'](_0x37af88['shift']());
-        } catch (_0x41b270) {
-            _0x37af88['push'](_0x37af88['shift']());
+                _0x49e321['push'](_0x49e321['shift']());
+        } catch (_0x47c7f0) {
+            _0x49e321['push'](_0x49e321['shift']());
         }
     }
-}(_0x2f0c, 0x396d2));
-function _0x2f0c() {
-    const _0x1c684a = ['\x0aआप\x20भी\x20खेल\x20कर\x20देखें!\x20🎮\x0a', 'floor', 'block', 'threeModeToggle', '26286dZLkLy', '.sidebar', 'moveCount1', 'red', 'querySelector', 'green', 'lastPlayed', '-sidebar', 'createElement', 'शब्द:\x20चाल\x0a', 'appendChild', 'yellow', '128514WccTDk', 'toString', 'false', 'darkModeToggle', 'substring', 'resetKey', 'padStart', 'true', 'dark-mode', 'copy', 'search', 'maxStreak', 'playCount', 'style', 'classList', 'forEach', 'playStreak', 'movesCounter', '11fzouUB', '10WwdwwA', 'body', '🧩\x20हिन्दी\x20शब्द\x20रचना\x20', 'from', 'solveGrid', 'userGrid', '2161092QXElSy', 'value', '9qzZxWm', 'bit.ly/hindi', 'textContent', 'winModal', 'selected2', 'selected', 'round', 'querySelectorAll', 'active', 'threeMode', '15064RpVylh', 'none', '411576vuJqNS', 'darkMode', '.overlay', 'repeat', 'streakMax', 'setHours', 'mindCheckToggle', 'q=4', 'remove', 'endsWith', 'Result\x20copied\x20to\x20clipboard!', 'split', '3TtVYSf', 'getElementById', '1018431ElOnJi', '18998JhFbCP', 'countdownTimer', 'winCount', 'onload', 'textarea', '15QORhJu', '88XxnviP', 'gridSizeDisplay', 'execCommand', '2262XoLWgy', 'add', 'checked', 'toggle', 'select'];
-    _0x2f0c = function() {
-        return _0x1c684a;
-    }
-    ;
-    return _0x2f0c();
-}
+}(_0x1b0e, 0xc0282));
 let darkMode = ![];
 const BOX = '█'
   , boxes = {
@@ -35,196 +27,205 @@ const BOX = '█'
     'white': '⬜',
     'black': '⬛'
 };
-function toggleMenu(_0x53c542) {
-    const _0x2f6a43 = _0x2c2c
-      , _0xe61ac0 = document[_0x2f6a43(0x1c1)]('.' + _0x53c542 + _0x2f6a43(0x1c4))
-      , _0x8c6216 = document['querySelector']('.overlay')
-      , _0x38feda = document[_0x2f6a43(0x197)]('.sidebar');
-    _0x38feda[_0x2f6a43(0x184)](_0x380bc1 => {
-        const _0x589c8c = _0x2f6a43;
-        _0x380bc1 !== _0xe61ac0 && _0x380bc1['classList'][_0x589c8c(0x1a4)](_0x589c8c(0x198));
+function _0x1b0e() {
+    const _0x4b0106 = ['appendChild', 'remove', '🧩\x20हिन्दी\x20शब्द\x20रचना\x20', 'false', 'select', 'dark-mode', 'toString', 'threeModeToggle', 'length', 'endsWith', 'display', 'copy', 'slice', 'maxStreak', 'floor', 'onload', 'split', 'mindCheckToggle', '12034jrFnmc', 'threeMode', 'playCount', 'lastPlayed', 'darkModeToggle', 'red', '.overlay', 'search', 'getElementById', 'userGrid', 'padStart', '\x0aआप\x20भी\x20खेल\x20कर\x20देखें!\x20🎮\x0a', 'green', '1011688OOMNGt', 'style', 'solveGrid', 'streakCount', 'selected', '54OPZpaC', 'true', 'Result\x20copied\x20to\x20clipboard!', '13940ziDKeS', 'querySelector', 'resetKey', 'toggle', '1016354MyNRKy', 'yellow', '10714710ZDFVdM', 'darkMode', 'textarea', '1iZebvm', 'winCount', 'getElementsByClassName', 'createElement', 'location', 'share', '35796DSvInK', 'Hindi\x20Matrix\x20Puzzle', 'bit.ly/hindi', 'दिनाँक:\x20', '1452dfdRex', '1013355JXeFif', 'moveCount2', 'checked', 'round', 'selected2', 'removeChild', '-sidebar', 'q=4', 'कुल\x20चालें:\x20', 'moveCount1', 'querySelectorAll', 'movesCounter', '582SvQkYI', 'active', 'add', '.sidebar', 'body', 'classList', 'setHours', '74893Smfkcn', 'execCommand', 'textContent', 'winModal', 'from', 'forEach', 'padEnd'];
+    _0x1b0e = function() {
+        return _0x4b0106;
+    }
+    ;
+    return _0x1b0e();
+}
+function toggleMenu(_0x3699f2) {
+    const _0x459502 = _0x4762
+      , _0x43f928 = document[_0x459502(0x10a)]('.' + _0x3699f2 + _0x459502(0xce))
+      , _0x505217 = document[_0x459502(0x10a)]('.overlay')
+      , _0x87e210 = document[_0x459502(0xd2)](_0x459502(0xd7));
+    _0x87e210[_0x459502(0xe0)](_0x12d480 => {
+        const _0x4da4c2 = _0x459502;
+        _0x12d480 !== _0x43f928 && _0x12d480[_0x4da4c2(0xd9)][_0x4da4c2(0xe3)]('active');
     }
     ),
-    _0xe61ac0[_0x2f6a43(0x183)][_0x2f6a43(0x1b7)](_0x2f6a43(0x198)),
-    _0x8c6216[_0x2f6a43(0x183)][_0x2f6a43(0x1b7)](_0x2f6a43(0x198));
-}
-function _0x2c2c(_0x585e9e, _0x50b36b) {
-    const _0x2f0c48 = _0x2f0c();
-    return _0x2c2c = function(_0x2c2c8e, _0x102eb1) {
-        _0x2c2c8e = _0x2c2c8e - 0x179;
-        let _0x3ca386 = _0x2f0c48[_0x2c2c8e];
-        return _0x3ca386;
-    }
-    ,
-    _0x2c2c(_0x585e9e, _0x50b36b);
+    _0x43f928[_0x459502(0xd9)]['toggle'](_0x459502(0xd5)),
+    _0x505217[_0x459502(0xd9)][_0x459502(0x10c)](_0x459502(0xd5));
 }
 function closeAllMenus() {
-    const _0x2bc2da = _0x2c2c
-      , _0x490dd7 = document[_0x2bc2da(0x197)](_0x2bc2da(0x1be))
-      , _0x4db3a6 = document[_0x2bc2da(0x1c1)](_0x2bc2da(0x19e));
-    _0x490dd7[_0x2bc2da(0x184)](_0x166e81 => {
-        const _0x3d9965 = _0x2bc2da;
-        _0x166e81[_0x3d9965(0x183)]['remove'](_0x3d9965(0x198));
+    const _0x4d2d11 = _0x4762
+      , _0x16e3d5 = document[_0x4d2d11(0xd2)](_0x4d2d11(0xd7))
+      , _0x25646c = document[_0x4d2d11(0x10a)](_0x4d2d11(0xfa));
+    _0x16e3d5[_0x4d2d11(0xe0)](_0xa3aa30 => {
+        const _0x519f19 = _0x4d2d11;
+        _0xa3aa30[_0x519f19(0xd9)]['remove'](_0x519f19(0xd5));
     }
     ),
-    _0x4db3a6[_0x2bc2da(0x183)][_0x2bc2da(0x1a4)]('active');
+    _0x25646c[_0x4d2d11(0xd9)][_0x4d2d11(0xe3)](_0x4d2d11(0xd5));
 }
 function toggleDarkMode() {
-    const _0x31e4bf = _0x2c2c;
-    darkMode = document[_0x31e4bf(0x1a9)](_0x31e4bf(0x1cc))['checked'],
-    document[_0x31e4bf(0x189)][_0x31e4bf(0x183)]['toggle']('dark-mode', darkMode),
-    setValue(_0x31e4bf(0x19d), darkMode);
+    const _0x583a3b = _0x4762;
+    darkMode = document['getElementById']('darkModeToggle')['checked'],
+    document['body']['classList'][_0x583a3b(0x10c)]('dark-mode', darkMode),
+    setValue(_0x583a3b(0x110), darkMode);
 }
 function toggleThreeMode() {
-    const _0x45b335 = _0x2c2c
-      , _0x288ff2 = document[_0x45b335(0x1a9)](_0x45b335(0x1bc))[_0x45b335(0x1b6)];
-    setValue(_0x45b335(0x199), _0x288ff2),
-    gridN = _0x288ff2 ? 0x3 : 0x4,
+    const _0x1cb447 = _0x4762
+      , _0x306453 = document[_0x1cb447(0xfc)](_0x1cb447(0xe9))['checked'];
+    setValue('threeMode', _0x306453),
+    gridN = _0x306453 ? 0x3 : 0x4,
     updateStats(),
     initializePuzzle();
 }
 function toggleMindCheck() {
-    const _0x33bc43 = _0x2c2c;
-    mindCheckMode = document['getElementById'](_0x33bc43(0x1a2))['checked'],
-    Array[_0x33bc43(0x18b)](document['getElementsByClassName']('grid-item'))['forEach'](function(_0x283728) {
-        const _0x120e3c = _0x33bc43;
-        _0x283728[_0x120e3c(0x183)][_0x120e3c(0x1a4)](_0x120e3c(0x195)),
-        _0x283728['classList'][_0x120e3c(0x1a4)](_0x120e3c(0x194));
+    const _0xb93d44 = _0x4762;
+    mindCheckMode = document[_0xb93d44(0xfc)](_0xb93d44(0xf3))[_0xb93d44(0xca)],
+    Array[_0xb93d44(0xdf)](document[_0xb93d44(0x114)]('grid-item'))['forEach'](function(_0xc4c330) {
+        const _0x1f0cd7 = _0xb93d44;
+        _0xc4c330[_0x1f0cd7(0xd9)][_0x1f0cd7(0xe3)](_0x1f0cd7(0x105)),
+        _0xc4c330[_0x1f0cd7(0xd9)]['remove'](_0x1f0cd7(0xcc));
     }),
     selectedItem = null;
 }
-window[_0xf2b303(0x1ae)] = function() {
+window[_0xdd911d(0xf1)] = function() {
     initializeFromCookies();
 }
 ;
+function _0x4762(_0x3e3f06, _0x502732) {
+    const _0x1b0ea8 = _0x1b0e();
+    return _0x4762 = function(_0x476202, _0x2fc814) {
+        _0x476202 = _0x476202 - 0xc2;
+        let _0x12a748 = _0x1b0ea8[_0x476202];
+        return _0x12a748;
+    }
+    ,
+    _0x4762(_0x3e3f06, _0x502732);
+}
 function readGridParam() {
-    const _0x59ce11 = _0xf2b303;
-    let _0x4a7572 = 0x0;
+    const _0x504eed = _0xdd911d;
+    let _0x4ce2ea = 0x0;
     try {
-        const _0x487fa0 = window['location'][_0x59ce11(0x17f)][_0x59ce11(0x1a7)]('&');
-        _0x487fa0[_0x59ce11(0x184)](_0xaad733 => {
-            const _0x59b9ee = _0x59ce11;
-            if (_0xaad733[_0x59b9ee(0x1a5)]('q=3'))
-                _0x4a7572 = 0x3;
+        const _0x362ef6 = window[_0x504eed(0x116)][_0x504eed(0xfb)][_0x504eed(0xf2)]('&');
+        _0x362ef6[_0x504eed(0xe0)](_0x435e3b => {
+            const _0x5a2568 = _0x504eed;
+            if (_0x435e3b['endsWith']('q=3'))
+                _0x4ce2ea = 0x3;
             else
-                _0xaad733[_0x59b9ee(0x1a5)](_0x59b9ee(0x1a3)) && (_0x4a7572 = 0x4);
+                _0x435e3b[_0x5a2568(0xeb)](_0x5a2568(0xcf)) && (_0x4ce2ea = 0x4);
         }
         );
-    } catch (_0x31cf94) {}
-    return _0x4a7572;
+    } catch (_0x57376f) {}
+    return _0x4ce2ea;
 }
 function initializeFromCookies() {
-    const _0x1b9933 = _0xf2b303;
-    !(getValue(_0x1b9933(0x17a), '') == resetKey) && (resetAllData(),
-    setValue(_0x1b9933(0x17a), resetKey));
-    darkMode = getValue(_0x1b9933(0x19d), _0x1b9933(0x1cb)) === _0x1b9933(0x17c);
-    let _0x5d5e1b = getValue('threeMode', _0x1b9933(0x1cb)) === 'true';
-    const _0xb816d7 = document[_0x1b9933(0x1a9)](_0x1b9933(0x1cc))
-      , _0x61db93 = document[_0x1b9933(0x1a9)]('threeModeToggle');
-    _0xb816d7 && (_0xb816d7[_0x1b9933(0x1b6)] = darkMode);
-    const _0x1db843 = readGridParam();
-    _0x1db843 > 0x0 && (_0x5d5e1b = _0x1db843 == 0x3 ? !![] : ![]),
-    _0x61db93 && (_0x61db93[_0x1b9933(0x1b6)] = _0x5d5e1b),
-    gridN = _0x5d5e1b ? 0x3 : 0x4,
+    const _0x3944f0 = _0xdd911d;
+    !(getValue(_0x3944f0(0x10b), '') == resetKey) && (resetAllData(),
+    setValue(_0x3944f0(0x10b), resetKey));
+    darkMode = getValue(_0x3944f0(0x110), _0x3944f0(0xe5)) === _0x3944f0(0x107);
+    let _0xe688b3 = getValue(_0x3944f0(0xf5), _0x3944f0(0xe5)) === 'true';
+    const _0x488747 = document[_0x3944f0(0xfc)](_0x3944f0(0xf8))
+      , _0x2fc12e = document[_0x3944f0(0xfc)](_0x3944f0(0xe9));
+    _0x488747 && (_0x488747[_0x3944f0(0xca)] = darkMode);
+    const _0x42c4cd = readGridParam();
+    _0x42c4cd > 0x0 && (_0xe688b3 = _0x42c4cd == 0x3 ? !![] : ![]),
+    _0x2fc12e && (_0x2fc12e['checked'] = _0xe688b3),
+    gridN = _0xe688b3 ? 0x3 : 0x4,
     updateStats(),
-    darkMode ? document[_0x1b9933(0x189)][_0x1b9933(0x183)][_0x1b9933(0x1b5)](_0x1b9933(0x17d)) : document[_0x1b9933(0x189)][_0x1b9933(0x183)][_0x1b9933(0x1a4)]('dark-mode'),
+    darkMode ? document[_0x3944f0(0xd8)]['classList'][_0x3944f0(0xd6)](_0x3944f0(0xe7)) : document[_0x3944f0(0xd8)]['classList'][_0x3944f0(0xe3)](_0x3944f0(0xe7)),
     initializePuzzle();
 }
 function updateStats() {
-    const _0x30bad4 = _0xf2b303
-      , _0x31e943 = getValue(_0x30bad4(0x1c3) + gridN, '');
-    playCount = getValue(_0x30bad4(0x181) + gridN, 0x0),
-    winCount = getValue(_0x30bad4(0x1ad) + gridN, 0x0),
-    streakCount = getValue('streakCount' + gridN, 0x0),
-    streakMax = getValue(_0x30bad4(0x1a0) + gridN, 0x0),
+    const _0x344d70 = _0xdd911d
+      , _0x43c316 = getValue(_0x344d70(0xf7) + gridN, '');
+    playCount = getValue(_0x344d70(0xf6) + gridN, 0x0),
+    winCount = getValue('winCount' + gridN, 0x0),
+    streakCount = getValue(_0x344d70(0x104) + gridN, 0x0),
+    streakMax = getValue('streakMax' + gridN, 0x0),
     solveGrid = getValue('solveGrid' + gridN, ''),
-    document[_0x30bad4(0x1a9)](_0x30bad4(0x181))[_0x30bad4(0x192)] = playCount,
-    winCount == 0x0 ? document[_0x30bad4(0x1a9)]('winCount')[_0x30bad4(0x192)] = '0%' : document['getElementById'](_0x30bad4(0x1ad))[_0x30bad4(0x192)] = Math[_0x30bad4(0x196)](winCount * 0x64 / playCount) + '%',
-    document['getElementById'](_0x30bad4(0x185))['textContent'] = streakCount,
-    document[_0x30bad4(0x1a9)](_0x30bad4(0x180))[_0x30bad4(0x192)] = streakMax,
-    (_0x31e943 != today || today == '') && (playCount++,
-    setValue('lastPlayed' + gridN, today),
-    setValue('playCount' + gridN, playCount),
-    setValue(_0x30bad4(0x18d) + gridN, ''),
-    setValue(_0x30bad4(0x18c) + gridN, ''),
-    setValue(_0x30bad4(0x186) + gridN, 0x0));
+    document['getElementById'](_0x344d70(0xf6))[_0x344d70(0xdd)] = playCount,
+    winCount == 0x0 ? document[_0x344d70(0xfc)](_0x344d70(0x113))[_0x344d70(0xdd)] = '0%' : document['getElementById'](_0x344d70(0x113))['textContent'] = Math[_0x344d70(0xcb)](winCount * 0x64 / playCount) + '%',
+    document['getElementById']('playStreak')[_0x344d70(0xdd)] = streakCount,
+    document[_0x344d70(0xfc)](_0x344d70(0xef))['textContent'] = streakMax,
+    (_0x43c316 != today || today == '') && (playCount++,
+    setValue(_0x344d70(0xf7) + gridN, today),
+    setValue(_0x344d70(0xf6) + gridN, playCount),
+    setValue(_0x344d70(0xfd) + gridN, ''),
+    setValue(_0x344d70(0x103) + gridN, ''),
+    setValue(_0x344d70(0xd3) + gridN, 0x0));
 }
 function showWinModal() {
-    const _0x25b957 = _0xf2b303
-      , _0x202c6f = document[_0x25b957(0x1a9)]('winModal');
-    document[_0x25b957(0x1a9)](_0x25b957(0x1bf))[_0x25b957(0x192)] = movesCounter,
-    document[_0x25b957(0x1a9)](_0x25b957(0x1b2))['textContent'] = gridN + 'x' + gridN,
-    document['getElementById']('moveCount2')[_0x25b957(0x192)] = movesCounter,
-    _0x202c6f['style']['display'] = _0x25b957(0x1bb),
+    const _0x541c68 = _0xdd911d
+      , _0xed4b17 = document[_0x541c68(0xfc)](_0x541c68(0xde));
+    document['getElementById'](_0x541c68(0xd1))[_0x541c68(0xdd)] = movesCounter,
+    document[_0x541c68(0xfc)]('gridSizeDisplay')[_0x541c68(0xdd)] = gridN + 'x' + gridN,
+    document[_0x541c68(0xfc)](_0x541c68(0xc9))[_0x541c68(0xdd)] = movesCounter,
+    _0xed4b17[_0x541c68(0x102)][_0x541c68(0xec)] = 'block',
     updateCountdown(),
     setInterval(updateCountdown, 0x3e8);
 }
 function closeWinModal() {
-    const _0x4c5f0d = _0xf2b303;
-    document['getElementById'](_0x4c5f0d(0x193))[_0x4c5f0d(0x182)]['display'] = _0x4c5f0d(0x19b);
+    const _0x2c2a54 = _0xdd911d;
+    document[_0x2c2a54(0xfc)](_0x2c2a54(0xde))['style'][_0x2c2a54(0xec)] = 'none';
 }
 function updateCountdown() {
-    const _0x2089db = _0xf2b303
-      , _0x5e6a2f = new Date()
-      , _0x3b0335 = new Date();
-    _0x3b0335[_0x2089db(0x1a1)](0x18, 0x0, 0x0, 0x0);
-    const _0x3d4aa5 = _0x3b0335 - _0x5e6a2f
-      , _0x41b407 = Math['floor'](_0x3d4aa5 / (0x3e8 * 0x3c * 0x3c))
-      , _0x43cee8 = Math['floor'](_0x3d4aa5 % (0x3e8 * 0x3c * 0x3c) / (0x3e8 * 0x3c))
-      , _0x502e0d = Math[_0x2089db(0x1ba)](_0x3d4aa5 % (0x3e8 * 0x3c) / 0x3e8)
-      , _0x3d9dce = String(_0x41b407)[_0x2089db(0x17b)](0x2, '0') + ':' + String(_0x43cee8)[_0x2089db(0x17b)](0x2, '0') + ':' + String(_0x502e0d)['padStart'](0x2, '0');
-    document[_0x2089db(0x1a9)](_0x2089db(0x1ac))[_0x2089db(0x192)] = _0x3d9dce;
+    const _0xf5ccca = _0xdd911d
+      , _0x39d472 = new Date()
+      , _0x20dbb4 = new Date();
+    _0x20dbb4[_0xf5ccca(0xda)](0x18, 0x0, 0x0, 0x0);
+    const _0x41a925 = _0x20dbb4 - _0x39d472
+      , _0x82b57b = Math[_0xf5ccca(0xf0)](_0x41a925 / (0x3e8 * 0x3c * 0x3c))
+      , _0x982de1 = Math['floor'](_0x41a925 % (0x3e8 * 0x3c * 0x3c) / (0x3e8 * 0x3c))
+      , _0x5b9ea1 = Math[_0xf5ccca(0xf0)](_0x41a925 % (0x3e8 * 0x3c) / 0x3e8)
+      , _0x5c403b = String(_0x82b57b)[_0xf5ccca(0xfe)](0x2, '0') + ':' + String(_0x982de1)['padStart'](0x2, '0') + ':' + String(_0x5b9ea1)[_0xf5ccca(0xfe)](0x2, '0');
+    document['getElementById']('countdownTimer')[_0xf5ccca(0xdd)] = _0x5c403b;
 }
 async function shareResult() {
-    const _0x2f73de = _0xf2b303
-      , _0x1eda10 = new Date()[_0x2f73de(0x1ca)]()[_0x2f73de(0x179)](0x4, 0xf);
-    let _0x21e645 = _0x2f73de(0x18a) + gridN + 'x' + gridN + '\x0a\x0a' + ('दिनाँक:\x20' + _0x1eda10 + '\x0a') + ('कुल\x20चालें:\x20' + movesCounter + '\x0a\x0a');
-    _0x2f73de(0x1c6);
-    const _0x26bc81 = createBarChart(![]);
-    _0x21e645 += _0x26bc81,
-    _0x21e645 += _0x2f73de(0x1b9) + (_0x2f73de(0x191) + gridN + 'x' + gridN);
+    const _0x4261ef = _0xdd911d
+      , _0x5d05c4 = new Date()[_0x4261ef(0xe8)]()['substring'](0x4, 0xf);
+    let _0x570cb2 = _0x4261ef(0xe4) + gridN + 'x' + gridN + '\x0a\x0a' + (_0x4261ef(0xc6) + _0x5d05c4 + '\x0a') + (_0x4261ef(0xd0) + movesCounter + '\x0a\x0a');
+    const _0x198143 = createBarChart(![]);
+    _0x570cb2 += _0x198143,
+    _0x570cb2 += _0x4261ef(0xff) + (_0x4261ef(0xc5) + gridN + 'x' + gridN);
     if (navigator['share'])
         try {
-            await navigator['share']({
-                'title': 'Hindi\x20Matrix\x20Puzzle',
-                'text': _0x21e645
+            await navigator[_0x4261ef(0xc2)]({
+                'title': _0x4261ef(0xc4),
+                'text': _0x570cb2
             });
-        } catch (_0x36d520) {
-            fallbackShare(_0x21e645);
+        } catch (_0x355a57) {
+            fallbackShare(_0x570cb2);
         }
     else
-        fallbackShare(_0x21e645);
+        fallbackShare(_0x570cb2);
 }
-function createBarChart(_0x229381=!![]) {
-    const _0x1c2e42 = _0xf2b303;
-    let _0x3d749e = 0x0
-      , _0x54c9db = '';
-    return solveSequence[_0x1c2e42(0x184)]( (_0x40c725, _0x135ce8) => {
-        const _0x206682 = _0x1c2e42
-          , _0xd8bfa0 = 0xa
-          , _0x503f2c = Number(_0x40c725) - _0x3d749e
-          , _0x35a84b = _0x503f2c > _0xd8bfa0 ? _0xd8bfa0 : _0x503f2c;
-        let _0x370148 = '';
-        if (_0x503f2c >= _0xd8bfa0)
-            _0x370148 = boxes[_0x206682(0x1c0)];
+function createBarChart(_0x1c2b00=!![]) {
+    const _0x32909f = _0xdd911d;
+    let _0x5681ca = 0x0
+      , _0x465f27 = movesCounter > 0x0 ? 'शब्द:\x20चाल\x0a' : '';
+    const _0x283e55 = solveSequence[_0x32909f(0xee)](Math['max'](solveSequence[_0x32909f(0xea)] - gridN, 0x0));
+    return _0x283e55['forEach']( (_0x43e9a2, _0x52ae0b) => {
+        const _0x2f9e57 = _0x32909f
+          , _0x1b622d = 0xa
+          , _0x5c8d10 = Number(_0x43e9a2) - _0x5681ca
+          , _0xa998e7 = _0x5c8d10 > _0x1b622d ? _0x1b622d : _0x5c8d10;
+        let _0x413c11 = '';
+        if (_0x5c8d10 >= _0x1b622d)
+            _0x413c11 = boxes[_0x2f9e57(0xf9)];
         else
-            _0x503f2c > (gridN == 0x3 ? 0x3 : 0x5) ? _0x370148 = boxes[_0x206682(0x1c8)] : _0x370148 = boxes[_0x206682(0x1c2)];
-        const _0x37fdfb = _0x35a84b <= 0x0 ? '' : _0x370148[_0x206682(0x19f)](_0x35a84b)
-          , _0x23b6c5 = _0x135ce8 + 0x1 + ':\x20'
-          , _0x21020e = _0x23b6c5['padEnd'](0x2);
-        _0x54c9db += '' + _0x21020e + _0x37fdfb + _0x503f2c > 0xa ? '\x20(' + _0x503f2c + ')\x0a' : '\x0a',
-        _0x3d749e += _0x503f2c;
+            _0x5c8d10 > (gridN == 0x3 ? 0x3 : 0x5) ? _0x413c11 = boxes[_0x2f9e57(0x10e)] : _0x413c11 = boxes[_0x2f9e57(0x100)];
+        const _0x135f9a = _0xa998e7 <= 0x0 ? '' : _0x413c11['repeat'](_0xa998e7)
+          , _0x10ee62 = _0x52ae0b + 0x1 + ':\x20'
+          , _0x3599ab = _0x10ee62[_0x2f9e57(0xe1)](0x2);
+        _0x465f27 += '' + _0x3599ab + _0x135f9a,
+        _0x465f27 += _0x5c8d10 > 0xa ? '\x20(' + _0x5c8d10 + ')\x0a' : '\x0a',
+        _0x5681ca += _0x5c8d10;
     }
     ),
-    _0x54c9db;
+    _0x465f27;
 }
-function fallbackShare(_0x185920) {
-    const _0x1a34b6 = _0xf2b303
-      , _0x4448cc = document[_0x1a34b6(0x1c5)](_0x1a34b6(0x1af));
-    _0x4448cc[_0x1a34b6(0x18f)] = _0x185920,
-    document[_0x1a34b6(0x189)][_0x1a34b6(0x1c7)](_0x4448cc),
-    _0x4448cc[_0x1a34b6(0x1b8)](),
-    document[_0x1a34b6(0x1b3)](_0x1a34b6(0x17e)),
-    document['body']['removeChild'](_0x4448cc),
-    alert(_0x1a34b6(0x1a6));
+function fallbackShare(_0x686b2) {
+    const _0x10d32e = _0xdd911d
+      , _0x265f9f = document[_0x10d32e(0x115)](_0x10d32e(0x111));
+    _0x265f9f['value'] = _0x686b2,
+    document[_0x10d32e(0xd8)][_0x10d32e(0xe2)](_0x265f9f),
+    _0x265f9f[_0x10d32e(0xe6)](),
+    document[_0x10d32e(0xdc)](_0x10d32e(0xed)),
+    document[_0x10d32e(0xd8)][_0x10d32e(0xcd)](_0x265f9f),
+    alert(_0x10d32e(0x108));
 }
