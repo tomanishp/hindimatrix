@@ -4,30 +4,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage Manager</title>
+    <style>
+        .storage-item {
+            margin: 5px 0;
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+        }
 
-    <title>Hindi Words Formation - हिन्दी शब्द रचना</title>
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .remove-btn {
+            margin: 10px 0;
+            padding: 8px 16px;
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            background-color: #cc0000;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .select-all-container {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .select-all-container label {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
-    <span>You can play the game again: <a href="index.html">Click Here</a></span>
+    <div class="container">
+        <div class="header">
+            <h2>LocalStorage Items</h2>
+            <div class="select-all-container">
+                <input type="checkbox" id="select-all" onchange="toggleSelectAll()">
+                <label for="select-all">Select All</label>
+            </div>
+        </div>
+        <div id="storage-list"></div>
+        <button class="remove-btn" onclick="removeSelected()">Remove Selected Items</button>
+    </div>
+
     <script>
-        window.onload = function () {
-            
-            window.localStorage.setItem('lastPlayed3', '2024-01-01');
-            window.localStorage.setItem('lastPlayed4', '2024-01-01');
+        function displayStorageItems() {
+            const storageList = document.getElementById('storage-list');
+            const selectAllCheckbox = document.getElementById('select-all');
+            storageList.innerHTML = ''; // Clear current list
 
-            window.localStorage.setItem('movesCounter3', 0);
-            window.localStorage.setItem('movesCounter4', 0);
+            // Reset select all checkbox
+            selectAllCheckbox.checked = false;
 
-            window.localStorage.setItem('userGrid3', '');
-            window.localStorage.setItem('userGrid4', '');
+            // Get all keys and sort them alphabetically
+            const sortedKeys = Object.keys(localStorage).sort();
 
-            window.localStorage.setItem('orgGrid3', '');
-            window.localStorage.setItem('orgGrid4', '');
+            sortedKeys.forEach((key, i) => {
+                const value = localStorage.getItem(key);
 
-            window.localStorage.setItem('solveGrid3', '');
-            window.localStorage.setItem('solveGrid4', '');
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'storage-item';
 
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `checkbox-${i}`;
+                checkbox.className = 'item-checkbox';
+                checkbox.setAttribute('data-key', key);
+                checkbox.onchange = updateSelectAllCheckbox;
+
+                const label = document.createElement('label');
+                label.htmlFor = `checkbox-${i}`;
+                label.innerHTML = `${key}: ${value}`;
+
+                itemDiv.appendChild(checkbox);
+                itemDiv.appendChild(label);
+                storageList.appendChild(itemDiv);
+            });
         }
-        </script>
+
+
+        function toggleSelectAll() {
+            const selectAllCheckbox = document.getElementById('select-all');
+            const checkboxes = document.querySelectorAll('.item-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+        }
+
+        function updateSelectAllCheckbox() {
+            const selectAllCheckbox = document.getElementById('select-all');
+            const checkboxes = document.querySelectorAll('.item-checkbox');
+            const checkedBoxes = document.querySelectorAll('.item-checkbox:checked');
+
+            // If all checkboxes are checked, check the "Select All" checkbox
+            // If any checkbox is unchecked, uncheck the "Select All" checkbox
+            selectAllCheckbox.checked = checkboxes.length === checkedBoxes.length;
+        }
+
+        function removeSelected() {
+            const checkboxes = document.querySelectorAll('.item-checkbox');
+            let itemsRemoved = false;
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const key = checkbox.getAttribute('data-key');
+                    localStorage.removeItem(key);
+                    itemsRemoved = true;
+                }
+            });
+
+            if (itemsRemoved) {
+                displayStorageItems(); // Refresh the display
+            }
+        }
+
+        // Initial display
+        window.onload = displayStorageItems;
+    </script>
 </body>
+
+</html>
