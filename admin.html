@@ -3,147 +3,160 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Cookie Manager</title>
+    <title>Hindi Words Foundation - Admin Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .button-container {
-            margin-bottom: 20px;
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        select,
+        textarea {
+            padding: 8px;
+            margin: 5px 0;
+            width: 100%;
         }
 
         button {
             padding: 10px 20px;
-            margin-right: 10px;
-            cursor: pointer;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 4px;
+            cursor: pointer;
         }
 
         button:hover {
             background-color: #45a049;
         }
 
-        #cookieDisplay {
-            background-color: #f5f5f5;
-            padding: 15px;
-            border-radius: 4px;
-            min-height: 100px;
+        .button-container {
+            display: flex;
+            gap: 10px;
         }
 
-        .cookie-item {
-            margin-bottom: 8px;
-            padding: 8px;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+        .toggle-button {
+            background-color: #2196F3;
+        }
+
+        .toggle-button:hover {
+            background-color: #0b7dda;
         }
     </style>
 </head>
 
 <body>
-    <div class="button-container">
-        <button onclick="lastPlayYesterday()">Set Yesterday</button>
+    <div class="container">
+        <h2>Game Data Admin Page</h2>
+        <div>
+            <label for="keySelect">Select Key:</label>
+            <select id="keySelect" onchange="showValue()">
+                <option value="">Select a key...</option>
+            </select>
+        </div>
+        <div>
+            <label for="valueText">Value:</label>
+            <textarea id="valueText" rows="4"></textarea>
+        </div>
+        <div class="button-container">
+            <button onclick="saveValue()">Save Changes</button>
+            <button onclick="removeKey()" style="display: none;">Remove This Key</button>
+            <button id="btnAdminFlag" class="toggle-button" onclick="toggleAdminFlag()">Toggle Admin Flag</button>
+        </div>
     </div>
-    <div id="cookieDisplay"></div>
 
     <script>
-        function displayCookies() {
-            const cookieDisplay = document.getElementById('cookieDisplay');
-            const cookies = document.cookie.split(';');
+        function populateKeys() {
+            const select = document.getElementById('keySelect');
+            select.innerHTML = '<option value="">Select a key...</option>';
 
-            if (cookies.length === 0 || cookies[0] === '') {
-                cookieDisplay.innerHTML = '<div class="cookie-item">No cookies found</div>';
+            const sortedKeys = Object.keys(localStorage).sort();
+            sortedKeys.forEach((key, i) => {
+                if (key != 'adminFlag') {
+                    const option = document.createElement('option');
+                    option.value = key;
+                    option.textContent = key;
+                    select.appendChild(option);
+                }
+            });
+            setAdminStatus();
+        }
+
+        function setAdminStatus() {
+
+            const currValue = localStorage.getItem('adminFlag') || '0';
+
+            document.getElementById('btnAdminFlag').innerText = currValue == '0' ? "Set My Admin Flag" : "Remove My Admin Flag";
+        }
+
+        function showValue() {
+            const select = document.getElementById('keySelect');
+            const textarea = document.getElementById('valueText');
+            const selectedKey = select.value;
+
+            if (selectedKey) {
+                textarea.value = localStorage.getItem(selectedKey);
+            } else {
+                textarea.value = '';
+            }
+        }
+
+        function saveValue() {
+            const select = document.getElementById('keySelect');
+            const textarea = document.getElementById('valueText');
+            const selectedKey = select.value;
+
+            if (!selectedKey) {
+                alert('Please select a key first');
                 return;
             }
 
-            let cookieHTML = '';
-            cookies.forEach(cookie => {
-                const [name, value] = cookie.trim().split('=');
-                cookieHTML += `
-                    <div class="cookie-item">
-                        <strong>${name}:</strong> ${decodeURIComponent(value)}
-                    </div>`;
-                    cookieHTML += `
-                    <div class="cookie-item">
-                        ${cookie}
-                    </div>`;
-            });
-
-            cookieHTML += `<br />
-                    <div class="cookie-item">
-                        <strong>All Values:</strong> ${decodeURIComponent(cookies)}
-                    </div>`;
-
-            cookieDisplay.innerHTML = cookieHTML;
-        }
-
-        function clearAllCookies() {
-            const cookies = document.cookie.split(';');
-
-            cookies.forEach(cookie => {
-                const name = cookie.split('=')[0].trim();
-                // Set expiration to past date to delete cookie
-                document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-            });
-
-            // Refresh the display
-            displayCookies();
-
-            // Show confirmation
-            alert('All cookies have been cleared!');
-        }
-
-        // Optional: Display cookies when page loads
-        displayCookies();
-
-        function setCookie(name, value, days) {
-            const expires = new Date();
-            if (days > 0) {
-                expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-            } else {
-                expires.setHours(23, 59, 59, 0);
+            try {
+                localStorage.setItem(selectedKey, textarea.value);
+                alert('Value saved successfully!');
+            } catch (e) {
+                alert('Error saving value: ' + e.message);
             }
-            document.cookie = name + '=' + value + ';expires=' + expires.toLocaleString() + ';path=/';
         }
 
-        function setDummyCookies() {
-            setCookie('gridArray4', '3$14$1$10$8$2$4$15$12$13$0$5$7$9$6$11')
-            setCookie('movesCounter4', '0')
-            setCookie('gridArray3', '3$$1$8$2$4$0$5$7$6')
-            setCookie('movesCounter3', '0')
-        }
+        function removeKey() {
+            const select = document.getElementById('keySelect');
+            const selectedKey = select.value;
 
-        function setValue(key, value) {
-            window.localStorage.setItem(key, value);
-        }
-        
-        
-        function getValue(key, defVal = null) {
-            let val = window.localStorage.getItem(key);
-        
-            if (val == null && defVal != null) {
-                val = defVal;
+            try {
+                localStorage.removeItem(selectedKey);
+                populateKeys();
+                alert('Value removed successfully!');
+            } catch (e) {
+                alert('Error removing value: ' + e.message);
             }
-            return val;
         }
 
-        function lastPlayYesterday(){
+        function toggleAdminFlag() {
+            const currentValue = localStorage.getItem('adminFlag') || '0';
+            const newValue = currentValue === '1' ? '0' : '1';
+            localStorage.setItem('adminFlag', newValue);
+            //alert(`Admin flag toggled to ${newValue}`);
 
-            let dtValue = new Date()
-                
-            dtValue.setDate(dtValue.getDate() - 1);
-            let today = new Date().toISOString().slice(0, 10);
-            let yesterday = dtValue.toISOString().slice(0, 10);
-            
-            setValue('lastPlayed3',yesterday);
-            setValue('lastPlayed4',yesterday);
+            /*
+            // Refresh the dropdown to show updated value if adminFlag is selected
+            const select = document.getElementById('keySelect');
+            if (select.value === 'adminFlag') {
+                document.getElementById('valueText').value = newValue;
+            } */
+            setAdminStatus();
         }
-        
+
+        // Initialize the dropdown when page loads
+        document.addEventListener('DOMContentLoaded', populateKeys);
     </script>
 </body>
 
