@@ -14,7 +14,7 @@ const _0x20245d = _0xc0df;
         }
     }
 }(_0x1a34, 0xb227c));
-const resetKey = '3x3-02-Mar';
+const resetKey = '02-Mar-25';
 let today = getToday()
   , totalDays = getIndex(firstDate)
   , mindCheckMode = ![]
