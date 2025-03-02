@@ -62,6 +62,7 @@ function initializePuzzle() {
     document[_0xadaca0(0x171)](_0xadaca0(0x18c))['innerText'] = movesCounter,
     document[_0xadaca0(0x171)](_0xadaca0(0x18b))[_0xadaca0(0x156)] = gridN == 0x3 ? _0xadaca0(0x158) : _0xadaca0(0x16f),
     document[_0xadaca0(0x171)](_0xadaca0(0x148))[_0xadaca0(0x156)] = gridN == 0x3 ? _0xadaca0(0x190) : 'four',
+    document.getElementById('totalDays').innerText = totalDays;    
     userGrid = getValue(_0xadaca0(0x18e) + gridN, ''),
     solveGrid = getValue('solveGrid' + gridN, '');
     if (solveGrid[_0xadaca0(0x157)] > 0x0)
@@ -160,9 +161,15 @@ function swapItems(_0x362220, _0x53b649) {
     document[_0x2ad9ea(0x171)]('movesCounter')[_0x2ad9ea(0x156)] = movesCounter;
 }
 function resetAllData() {
-    const _0x58fb14 = _0x20245d;
-    window['localStorage'][_0x58fb14(0x172)]();
+    setValue('userGrid' + gridN, '');
+    setValue('solveGrid' + gridN, '');
+    setValue('movesCounter' + gridN, 0);
 }
+
+function resetAllDataAdmin() {
+    window.localStorage.clear();
+}
+
 function _0xc0df(_0x1782f6, _0x2623d2) {
     const _0x1a3417 = _0x1a34();
     return _0xc0df = function(_0xc0dfd9, _0x823a2a) {
