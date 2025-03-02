@@ -259,7 +259,7 @@ function checkRows() {
             setValue(_0xcd6e70(0x14c) + gridN, today),
             setValue(_0xcd6e70(0x187) + gridN, winCount),
             updateStats(),
-            showWinModal();
+            setTimeout(showWinModal, 1500);
         }
     } else
         document[_0xcd6e70(0x171)](_0xcd6e70(0x19a))['style']['display'] = _0xcd6e70(0x18a),
