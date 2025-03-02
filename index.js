@@ -116,7 +116,7 @@ function readGridParam() {
 }
 function initializeFromCookies() {
     const _0x1751e7 = _0x15aa55;
-    !(getValue(_0x1751e7(0x1fa), '') == resetKey) && (resetAllData(),
+    !(getValue(_0x1751e7(0x1fa), '') == resetKey) && (resetAllData(3),resetAllData(4),
     setValue('resetKey', resetKey));
     darkMode = getValue(_0x1751e7(0x1e4), _0x1751e7(0x1d8)) === 'true';
     let _0x1105f5 = getValue(_0x1751e7(0x1da), 'false') === _0x1751e7(0x1f7);

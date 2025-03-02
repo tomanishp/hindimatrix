@@ -14,7 +14,7 @@ const _0x20245d = _0xc0df;
         }
     }
 }(_0x1a34, 0xb227c));
-const resetKey = '02-Mar-25';
+const resetKey = '02-Mar-Again';
 let today = getToday()
   , totalDays = getIndex(firstDate)
   , mindCheckMode = ![]
@@ -160,10 +160,10 @@ function swapItems(_0x362220, _0x53b649) {
     movesCounter++,
     document[_0x2ad9ea(0x171)]('movesCounter')[_0x2ad9ea(0x156)] = movesCounter;
 }
-function resetAllData() {
-    setValue('userGrid' + gridN, '');
-    setValue('solveGrid' + gridN, '');
-    setValue('movesCounter' + gridN, 0);
+function resetAllData(type) {
+    setValue('userGrid' + type, '');
+    setValue('solveGrid' + type, '');
+    setValue('movesCounter' + type, 0);
 }
 
 function resetAllDataAdmin() {
